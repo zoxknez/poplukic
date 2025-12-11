@@ -1,9 +1,33 @@
+"use client";
+
 import Link from "next/link";
-import { Menu, Phone, Mail, MapPin } from "lucide-react";
+import { Menu } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-dark border-b-0 rounded-b-2xl mx-4 mt-4 px-6 py-4">
+    <motion.nav 
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-140%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      className="fixed top-0 left-0 right-0 z-50 glass-dark border-b-0 rounded-b-2xl mx-4 mt-4 px-6 py-4"
+    >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -32,6 +56,6 @@ export default function Navbar() {
           <Menu />
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
