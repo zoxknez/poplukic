@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Box, Truck, TreePine, CheckCircle, Factory, ShieldCheck } from "lucide-react";
+import { ArrowRight, Box, Truck, TreePine, CheckCircle, Factory, ShieldCheck, Phone, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,79 +22,95 @@ const staggerContainer = {
 export default function Home() {
   return (
     <main className="min-h-screen pt-24 pb-12">
-      
+
       {/* Hero Section */}
-      <section className="min-h-[80vh] flex items-center justify-center px-4 relative">
-        <div className="max-w-5xl mx-auto text-center z-10">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-block mb-4 px-4 py-1 rounded-full glass-dark text-wood-300 text-sm font-medium tracking-wider uppercase"
-          >
-            Lider u preradi drveta od 2005.
-          </motion.div>
-          
-          <motion.h1 
+      <section className="min-h-[100vh] flex items-center justify-center px-6 relative overflow-hidden">
+        {/* Animated Background Orbs */}
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-wood-900/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-forest-900/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+        <div className="max-w-6xl mx-auto text-center z-10">
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-tight"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2 mb-8 px-5 py-1.5 rounded-full glass-wood text-wood-200 text-sm font-medium border-wood-500/10"
           >
-            Priroda u <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-wood-300 to-wood-500">
-              Vašoj Službi
+            <span className="w-1.5 h-1.5 rounded-full bg-wood-500 animate-ping"></span>
+            Lider u preradi drveta od 2005.
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-8 tracking-tighter leading-[0.9]"
+          >
+            Priroda u <br />
+            <span className="text-gradient drop-shadow-sm">
+              službi kvaliteta
             </span>
           </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-stone-300 mb-10 max-w-2xl mx-auto leading-relaxed"
-          >
-            Kompletna rešenja za drvnu ambalažu i transport. 
-            Proizvodnja paleta, gajbica i rezane građe po najvišim svetskim standardima.
-          </motion.p>
-          
-          <motion.div 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="text-lg md:text-2xl text-wood-100/60 mb-14 max-w-3xl mx-auto leading-relaxed font-light"
           >
-            <a href="#proizvodi" className="group bg-wood-600 hover:bg-wood-500 text-white px-8 py-4 rounded-full font-semibold transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(139,90,43,0.3)] hover:shadow-[0_0_30px_rgba(139,90,43,0.5)]">
-              Istražite Proizvode <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform"/>
+            Vrhunska rešenja za drvnu ambalažu i transport.
+            Proizvodnja paleta i gajbica po najvišim evropskim standardima preciznosti.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col sm:flex-row gap-6 justify-center"
+          >
+            <a href="#proizvodi" className="group bg-wood-600 hover:bg-wood-500 text-white px-10 py-5 rounded-full font-semibold transition-all duration-500 flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(171,101,61,0.3)] hover:shadow-[0_15px_40px_rgba(171,101,61,0.5)] hover:-translate-y-1">
+              Naš asortiman <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500" />
             </a>
-            <a href="#kontakt" className="glass hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all">
-              Zatražite Ponudu
+            <a href="#kontakt" className="glass-wood hover:bg-wood-400/10 text-wood-100 px-10 py-5 rounded-full font-semibold transition-all duration-500 border-wood-500/20 backdrop-blur-xl hover:-translate-y-1">
+              Zatražite ponudu
             </a>
           </motion.div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <span className="text-xs text-wood-100/30 font-medium">Povucite naniže</span>
+          <div className="w-px h-12 bg-gradient-to-b from-wood-500/50 to-transparent"></div>
+        </motion.div>
       </section>
 
       {/* Stats / Features */}
-      <section className="py-20 px-4">
+      <section className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-6"
+            className="grid md:grid-cols-3 gap-8"
           >
             {[
-              { icon: Factory, title: "Kapacitet", desc: "15,000 gajbica dnevno i velike serije paleta.", link: null },
-              { icon: CheckCircle, title: "Kvalitet", desc: "ISPM 15 termički tretman i FSC sertifikovana sirovina.", link: null },
-              { icon: Truck, title: "Logistika", desc: "Sopstveni vozni park za brzu isporuku širom regiona.", link: "/usluge/transport" }
+              { icon: Factory, title: "Kapacitet", desc: "15,000 gajbica dnevno i velike serije paleta visokog kvaliteta.", link: null },
+              { icon: CheckCircle, title: "Kvalitet", desc: "ISPM 15 termički tretman i FSC™ sertifikovana sirovina iz održivih izvora.", link: null },
+              { icon: Truck, title: "Logistika", desc: "Sopstveni vozni park garantuje brzu isporuku širom regiona u svakom trenutku.", link: "/usluge/transport" }
             ].map((item, i) => (
-              <motion.div key={i} variants={fadeInUp} className="glass-dark p-8 rounded-2xl border-t border-white/10 hover:bg-white/5 transition-colors relative group">
+              <motion.div key={i} variants={fadeInUp} className="glass-wood p-10 rounded-[2rem] border-wood-500/10 hover:bg-wood-500/5 transition-all duration-500 relative group">
                 {item.link && <Link href={item.link} className="absolute inset-0 z-10" />}
-                <div className="w-12 h-12 bg-wood-500/20 rounded-xl flex items-center justify-center text-wood-400 mb-4 group-hover:bg-wood-500/30 transition-colors">
-                  <item.icon size={24} />
+                <div className="w-16 h-16 bg-wood-500/10 rounded-2xl flex items-center justify-center text-wood-400 mb-8 group-hover:scale-110 group-hover:bg-wood-500/20 group-hover:text-wood-300 transition-all duration-500">
+                  <item.icon size={32} strokeWidth={1.5} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-stone-400">{item.desc}</p>
+                <h3 className="text-2xl font-serif font-bold text-white mb-4 tracking-wide">{item.title}</h3>
+                <p className="text-wood-100/40 leading-relaxed font-light">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -102,115 +118,143 @@ export default function Home() {
       </section>
 
       {/* Products Section */}
-      <section id="proizvodi" className="py-20 px-4 relative">
+      <section id="proizvodi" className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-wood-400 font-bold tracking-widest uppercase text-sm">Naš Asortiman</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">Vrhunski Proizvodi od Drveta</h2>
+          <div className="mb-20">
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-wood-400 font-medium text-sm block mb-4"
+            >
+              Naš proizvodni program
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-serif font-bold text-white tracking-tight"
+            >
+              Vrhunski proizvodi <span className="text-wood-500">od drveta</span>
+            </motion.h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-10">
             {/* Pallets */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="glass-dark rounded-3xl overflow-hidden group"
+              transition={{ duration: 0.8 }}
+              className="glass-wood rounded-[2.5rem] overflow-hidden group border-wood-500/5 hover:border-wood-500/20 transition-all duration-500"
             >
-              <div className="h-64 relative overflow-hidden">
-                <Image 
-                  src="https://picsum.photos/seed/pallets/800/600" 
-                  alt="Drvene Palete" 
+              <div className="h-80 relative overflow-hidden">
+                <Image
+                  src="https://picsum.photos/seed/pallets/800/600"
+                  alt="Drvene palete"
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-3xl font-bold text-white">Drvene Palete</h3>
-                  <p className="text-wood-300">Standardne & Po Meri</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
+                <div className="absolute bottom-10 left-10">
+                  <h3 className="text-4xl font-serif font-bold text-white mb-2">Drvene palete</h3>
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-px bg-wood-500"></span>
+                    <p className="text-wood-300 font-medium text-sm">Standardne i po meri</p>
+                  </div>
                 </div>
               </div>
-              <div className="p-8">
-                <ul className="space-y-3 text-stone-300 mb-6">
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Standardne (1200x800 mm)</li>
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Industrijske (1200x1000 mm)</li>
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Boks Palete (1200x1000x1200 mm)</li>
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>ISPM 15 Termički tretirane</li>
+              <div className="p-10">
+                <ul className="space-y-4 text-wood-100/50 mb-10 font-light">
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Standardne (1200x800 mm / 1200x1000 mm)</li>
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Boks palete i namenska ambalaža</li>
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> ISPM 15 termički tretirane</li>
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Visoka nosivost i dugotrajnost</li>
                 </ul>
-                <Link href="/proizvodi/palete" className="block w-full text-center py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white transition-colors">Detaljnije</Link>
+                <Link href="/proizvodi/palete" className="flex items-center justify-between group/btn text-white font-medium text-sm border border-wood-500/20 rounded-full px-8 py-4 hover:bg-wood-500 transition-all duration-500">
+                  Detaljnije
+                  <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform duration-500" />
+                </Link>
               </div>
             </motion.div>
 
             {/* Crates */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="glass-dark rounded-3xl overflow-hidden group"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="glass-wood rounded-[2.5rem] overflow-hidden group border-wood-500/5 hover:border-wood-500/20 transition-all duration-500"
             >
-              <div className="h-64 relative overflow-hidden">
-                <Image 
-                  src="https://picsum.photos/seed/crates/800/600" 
-                  alt="Drvene Gajbice" 
+              <div className="h-80 relative overflow-hidden">
+                <Image
+                  src="https://picsum.photos/seed/crates/800/600"
+                  alt="Drvene gajbice"
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-3xl font-bold text-white">Drvene Gajbice</h3>
-                  <p className="text-wood-300">Za Voće i Povrće</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
+                <div className="absolute bottom-10 left-10">
+                  <h3 className="text-4xl font-serif font-bold text-white mb-2">Drvene gajbice</h3>
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-px bg-wood-500"></span>
+                    <p className="text-wood-300 font-medium text-sm">Za voće i povrće</p>
+                  </div>
                 </div>
               </div>
-              <div className="p-8">
-                <ul className="space-y-3 text-stone-300 mb-6">
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Jednoredne i dvoredne</li>
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Patosi i elementi za gajbice</li>
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Visok kvalitet obrade</li>
-                  <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-wood-500"></div>Kapacitet 15,000 kom/dan</li>
+              <div className="p-10">
+                <ul className="space-y-4 text-wood-100/50 mb-10 font-light">
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Jednoredne i dvoredne konstrukcije</li>
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Patosi i elementi vrhunske završne obrade</li>
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Optimizovano za transport osetljivih plodova</li>
+                  <li className="flex items-center gap-3"><CheckCircle size={16} className="text-wood-500" /> Kapacitet od 15.000 komada na dan</li>
                 </ul>
-                <Link href="/proizvodi/gajbice" className="block w-full text-center py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white transition-colors">Detaljnije</Link>
+                <Link href="/proizvodi/gajbice" className="flex items-center justify-between group/btn text-white font-medium text-sm border border-wood-500/20 rounded-full px-8 py-4 hover:bg-wood-500 transition-all duration-500">
+                  Detaljnije
+                  <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform duration-500" />
+                </Link>
               </div>
             </motion.div>
 
             {/* Lumber */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="glass-dark rounded-3xl overflow-hidden group md:col-span-2"
+              transition={{ duration: 0.8 }}
+              className="glass-wood rounded-[2.5rem] overflow-hidden group md:col-span-2 border-wood-500/5 hover:border-wood-500/20 transition-all duration-500"
             >
               <div className="grid md:grid-cols-2">
-                <div className="h-64 md:h-auto relative overflow-hidden">
-                  <Image 
-                    src="https://picsum.photos/seed/lumber/800/600" 
-                    alt="Rezana Građa" 
+                <div className="h-80 md:h-auto relative overflow-hidden">
+                  <Image
+                    src="https://picsum.photos/seed/lumber/800/600"
+                    alt="Rezana građa"
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:bg-gradient-to-r"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#050505] via-transparent to-transparent"></div>
                 </div>
-                <div className="p-8 flex flex-col justify-center">
-                  <h3 className="text-3xl font-bold text-white mb-2">Rezana Građa</h3>
-                  <p className="text-stone-400 mb-6">Hrast i Topola vrhunskog kvaliteta.</p>
-                  <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="p-10 flex flex-col justify-center">
+                  <h3 className="text-4xl font-serif font-bold text-white mb-4 tracking-tight">Rezana građa</h3>
+                  <p className="text-wood-100/40 mb-10 font-light leading-relaxed">Hrast i Topola vrhunskog kvaliteta za nameštaj i građevinsku industriju. Prerađeno sa preciznošću.</p>
+                  <div className="grid grid-cols-2 gap-8 mb-10">
                     <div>
-                      <h4 className="text-wood-400 font-bold mb-2">Sirova ili Sušena</h4>
-                      <p className="text-sm text-stone-500">Vlažnost 8-10% (sušara) ili 22% (vazdušno).</p>
+                      <h4 className="text-wood-400 font-bold mb-2 text-sm">Sirova ili sušena</h4>
+                      <p className="text-sm text-wood-100/30 font-light">Vlažnost 8-10% (sušara) ili 22% (vazdušno).</p>
                     </div>
                     <div>
-                      <h4 className="text-wood-400 font-bold mb-2">Dimenzije</h4>
-                      <p className="text-sm text-stone-500">Debljine: 25, 32, 38, 50mm.<br/>Dužine: 0.3 - 4m.</p>
+                      <h4 className="text-wood-400 font-bold mb-2 text-sm">Dimenzije</h4>
+                      <p className="text-sm text-wood-100/30 font-light">Debljine: 25-50mm.<br />Dužine: 0.3 - 4m.</p>
                     </div>
                   </div>
-                  <div className="flex gap-4">
-                    <span className="px-3 py-1 bg-white/5 rounded text-xs text-stone-300 border border-white/10">Klasa A</span>
-                    <span className="px-3 py-1 bg-white/5 rounded text-xs text-stone-300 border border-white/10">Klasa B</span>
-                    <span className="px-3 py-1 bg-white/5 rounded text-xs text-stone-300 border border-white/10">Klasa C</span>
+                  <div className="flex gap-4 mb-10">
+                    <span className="px-4 py-1.5 bg-wood-950/50 rounded-full text-xs font-medium text-wood-200 border border-wood-800/30">Klasa A</span>
+                    <span className="px-4 py-1.5 bg-wood-950/50 rounded-full text-xs font-medium text-wood-200 border border-wood-800/30">Klasa B</span>
                   </div>
-                  <Link href="/proizvodi/rezana-gradja" className="block w-full text-center py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white transition-colors">Detaljnije</Link>
+                  <Link href="/proizvodi/rezana-gradja" className="flex items-center justify-between group/btn text-white font-medium text-sm border border-wood-500/20 rounded-full px-8 py-4 hover:bg-wood-500 transition-all duration-500">
+                    Detaljnije
+                    <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform duration-500" />
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -223,8 +267,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="glass-dark rounded-3xl p-12 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-wood-500 to-transparent"></div>
-            
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Sertifikovani Kvalitet</h2>
+
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Sertifikovani kvalitet</h2>
             <p className="text-stone-300 max-w-2xl mx-auto mb-12">
               Naša posvećenost kvalitetu potvrđena je međunarodnim sertifikatima koji garantuju bezbednost i održivost naših proizvoda.
             </p>
@@ -255,29 +299,61 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="kontakt" className="py-20 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-8">Kontaktirajte Nas</h2>
-          <div className="glass-dark p-8 rounded-3xl">
-            <form className="space-y-4 text-left">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm text-stone-400 mb-1">Ime i Prezime</label>
-                  <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-wood-500 transition-colors" placeholder="Vaše ime" />
-                </div>
-                <div>
-                  <label className="block text-sm text-stone-400 mb-1">Email Adresa</label>
-                  <input type="email" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-wood-500 transition-colors" placeholder="vas@email.com" />
-                </div>
-              </div>
+      <section id="kontakt" className="py-32 px-6 relative">
+        <div className="max-w-4xl mx-auto">
+          <div className="glass-wood p-12 md:p-16 rounded-[3rem] border-wood-500/10 relative overflow-hidden backdrop-blur-3xl">
+            <div className="relative z-10 grid md:grid-cols-2 gap-16">
               <div>
-                <label className="block text-sm text-stone-400 mb-1">Poruka</label>
-                <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-wood-500 transition-colors" placeholder="Kako vam možemo pomoći?"></textarea>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-4xl md:text-5xl font-serif font-bold text-white mb-8 tracking-tight"
+                >
+                  Započnimo <span className="text-wood-500 italic font-light">saradnju</span>
+                </motion.h2>
+                <p className="text-wood-100/40 mb-10 font-light leading-relaxed">
+                  Naš tim stručnjaka je spreman da odgovori na sve vaše zahteve u najkraćem roku. Pozovite nas ili pošaljite upit putem forme.
+                </p>
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-wood-500/10 flex items-center justify-center text-wood-500">
+                      <Phone size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-wood-100/30">Telefon</p>
+                      <p className="text-white font-medium">+381 (0) XX XXX XXX</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-wood-500/10 flex items-center justify-center text-wood-500">
+                      <Mail size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-wood-100/30">Email</p>
+                      <p className="text-white font-medium">office.poplukic@gmail.com</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <button type="button" className="w-full bg-wood-600 hover:bg-wood-500 text-white font-bold py-4 rounded-lg transition-all shadow-lg">
-                Pošalji Upit
-              </button>
-            </form>
+              <form className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-wood-100/40 ml-1">Vaše ime</label>
+                  <input type="text" className="w-full bg-white/5 border border-white/5 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-wood-500/50 transition-all font-light" placeholder="Petar Perić" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-wood-100/40 ml-1">Email adresa</label>
+                  <input type="email" className="w-full bg-white/5 border border-white/5 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-wood-500/50 transition-all font-light" placeholder="petar@gmail.com" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-wood-100/40 ml-1">Vaša poruka</label>
+                  <textarea rows={4} className="w-full bg-white/5 border border-white/5 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-wood-500/50 transition-all font-light resize-none" placeholder="Kako vam možemo pomoći?"></textarea>
+                </div>
+                <button type="button" className="w-full bg-wood-600 hover:bg-wood-500 text-white font-bold py-5 rounded-2xl transition-all duration-500 shadow-xl flex items-center justify-center gap-3 group">
+                  Pošalji upit <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
