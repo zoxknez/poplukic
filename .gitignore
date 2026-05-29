@@ -13,6 +13,10 @@
 # production
 /build
 
+# database
+dev.db
+dev.db-journal
+
 # misc
 .DS_Store
 *.pem
