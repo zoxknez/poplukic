@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle, MessageCircle } from "lucide-react";
@@ -20,8 +20,8 @@ type QuoteFormProps = {
 export function QuoteForm({
   product,
   defaultMessage = "",
-  title = "Zatražite ponudu",
-  description = "Odgovaramo u roku od 24 radna sata.",
+  title = "Zahtev za ponudu",
+  description = "Odgovor stiže u roku od 24 radna sata.",
   compact = false,
   bare = false,
   premium = false,
@@ -72,13 +72,13 @@ export function QuoteForm({
 
   const formFields = (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Input name="name" label="Ime i prezime / firma *" required placeholder="Vaše ime ili naziv firme" />
+      <Input name="name" label="Ime i prezime / firma *" required placeholder="Ime i prezime ili naziv firme" />
       <Input
         name="email"
         type="email"
         label="Email *"
         required
-        placeholder="vas@email.rs"
+        placeholder="primer@email.rs"
       />
       <Input name="phone" type="tel" label="Telefon" placeholder="+381 6X XXX XXXX" />
       <Textarea
@@ -98,7 +98,7 @@ export function QuoteForm({
       )}
 
       <Button type="submit" className="w-full rounded-full" disabled={status === "loading"}>
-        {status === "loading" ? "Šaljem..." : "Pošalji upit"}
+        {status === "loading" ? "Slanje..." : "Slanje upita"}
         <Send size={16} />
       </Button>
     </form>
@@ -109,14 +109,14 @@ export function QuoteForm({
       <div className="rounded-2xl border border-forest-200 bg-gradient-to-br from-forest-50 to-white p-8 text-center">
         <CheckCircle className="w-12 h-12 text-forest-600 mx-auto mb-4" />
         <h3 className="font-serif text-xl font-bold text-wood-950 mb-2">Upit je poslat</h3>
-        <p className="text-stone-600 text-sm">Hvala - javićemo vam se uskoro.</p>
+        <p className="text-stone-600 text-sm">Upit je primljen. Odgovor stiže uskoro.</p>
         <Button
           variant="outline"
           size="sm"
           className="mt-6 rounded-full"
           onClick={() => setStatus("idle")}
         >
-          Pošalji novi upit
+          Novi upit
         </Button>
       </div>
     );

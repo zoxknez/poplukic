@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
@@ -15,11 +15,11 @@ export default function TransportPage() {
   return (
     <ProductPageLayout
       productName="Transport i logistika"
-      sidebarNote="Transport prvenstveno za naš asortiman; slobodan tovarni prostor dostupan po dogovoru."
+      sidebarNote="Transport prvenstveno za asortiman kompanije; slobodan tovarni prostor dostupan po dogovoru."
       hero={{
         title: "Transport i logistika",
         description:
-          "Sopstveni kamioni i šleperi - brza isporuka ambalaže i građe. CMR dokumentacija za izvoz.",
+          "Sopstveni kamioni i šleperi – brza isporuka ambalaže i građe. CMR dokumentacija za izvoz.",
         image: "/images/transport.png",
         imageAlt: "Transport POP-LUKIĆ",
         badges: ["24-48 h", "GPS praćenje"],

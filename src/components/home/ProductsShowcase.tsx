@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { products } from "@/lib/site";
@@ -32,7 +32,7 @@ export function ProductsShowcase() {
               <span className="block font-bold">od drveta</span>
             </h2>
             <p className="mt-5 text-stone-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-[1.0625rem]">
-              Od standardnih EUR paleta do poljoprivrednih gajbica i sušene građe - sve iz
+              Od standardnih EUR paleta do poljoprivrednih gajbica i sušene građe – sve iz
               jednog pogona, jedan kvalitet.
             </p>
           </div>
@@ -40,7 +40,7 @@ export function ProductsShowcase() {
             href="/kontakt"
             className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-wood-800 hover:text-wood-600 transition-colors group shrink-0 mx-auto lg:mx-0"
           >
-            Zatražite ponudu
+            Zahtev za ponudu
             <ArrowUpRight
               size={16}
               className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -138,14 +138,14 @@ export function ProductsShowcase() {
         <div className="mt-16 md:mt-20 rounded-2xl bg-wood-950 px-6 py-5 md:px-8 md:py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-center md:text-left">
           <p className="text-sm text-stone-300 max-w-xl leading-relaxed mx-auto md:mx-0">
             Svi proizvodi sa <span className="text-white font-medium">ISPM 15</span> i{" "}
-            <span className="text-white font-medium">FSC™</span> dokumentacijom - specifikacije po
+            <span className="text-white font-medium">FSC™</span> dokumentacijom – specifikacije po
             meri i logistika u ponudi.
           </p>
           <Link
             href="/kontakt"
             className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-wood-200 hover:text-white transition-colors shrink-0 mx-auto md:mx-0"
           >
-            Zatražite ponudu
+            Zahtev za ponudu
             <ArrowUpRight size={16} />
           </Link>
         </div>

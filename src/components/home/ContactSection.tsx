@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Mail, Phone, Clock, ArrowUpRight } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
@@ -65,12 +65,12 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 <span className="section-eyebrow-line bg-wood-500 lg:hidden" aria-hidden />
               </div>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-wood-950 tracking-tight leading-[1.12] text-balance">
-                Započnimo
+                Početak
                 <span className="block font-bold">saradnju</span>
               </h2>
               <p className="mt-5 text-stone-700 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Pošaljite specifikaciju proizvoda i količinu - pripremićemo ponudu u roku od 24
-                radna sata. Možete nas i direktno pozvati.
+                Nakon prijema specifikacije proizvoda i količine, ponuda se priprema u roku od 24
+                radna sata. Dostupan je i direktan telefonski kontakt.
               </p>
             </div>
 

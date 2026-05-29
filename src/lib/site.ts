@@ -1,4 +1,4 @@
-﻿export const siteConfig = {
+export const siteConfig = {
   name: "POP-LUKIĆ DOO",
   shortName: "POP-LUKIĆ",
   tagline: "Drvena ambalaža i rezana građa",
@@ -92,7 +92,7 @@ export const processSteps = [
   {
     step: "02",
     title: "Sušenje i tretman",
-    desc: "Kompjuterske sušare i ISPM 15 termički tretman.",
+    desc: "Automatizovane sušare i ISPM 15 termički tretman.",
     image: "/images/lumber.png",
   },
   {
@@ -104,7 +104,7 @@ export const processSteps = [
   {
     step: "04",
     title: "Isporuka",
-    desc: "Sopstvena logistika - brza i pouzdana dostava.",
+    desc: "Sopstvena logistika kompanije – brza i pouzdana dostava.",
     image: "/images/transport.png",
   },
 ] as const;

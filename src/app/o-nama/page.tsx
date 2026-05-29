@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Factory, ShieldCheck, Truck } from "lucide-react";
 import { SubPageHero } from "@/components/layout/SubPageHero";
@@ -28,7 +28,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <div className="text-center lg:text-left">
               <PageHeader
-                label="Naša priča"
+                label="Priča kompanije"
                 title="Lider u drvnoj"
                 titleBold="ambalaži regiona"
                 description="Tradicija drvoprerađivačke industrije Banata uz modernu opremu i sertifikovane procese."
@@ -37,11 +37,11 @@ export default function AboutPage() {
                 <p>
                   Kompanija <strong className="text-wood-950">{siteConfig.name}</strong> iz
                   Banatskog Velikog Sela specijalizovana je za proizvodnju drvenih paleta,
-                  poljoprivrednih gajbica i rezane građe. Opslužujemo kupce u celoj Srbiji i
+                  poljoprivrednih gajbica i rezane građe. Kompanija opslužuje kupce u celoj Srbiji i
                   regionu.
                 </p>
                 <p>
-                  Kontrolišemo ceo lanac - od sirovine iz održivih izvora, preko sušenja i
+                  Kompanija kontroliše ceo lanac – od sirovine iz održivih izvora, preko sušenja i
                   termičkog tretmana, do gotovih proizvoda i isporuke sopstvenim voznim parkom.
                 </p>
               </div>
@@ -90,7 +90,7 @@ export default function AboutPage() {
               {
                 icon: Truck,
                 title: "Logistika",
-                desc: "Sopstveni transport - isporuka na vreme.",
+                desc: "Sopstveni transport – isporuka na vreme.",
               },
             ].map(({ icon: Icon, title, desc }) => (
               <div
@@ -107,7 +107,7 @@ export default function AboutPage() {
           </div>
           <div className="text-center mt-12 flex justify-center">
             <Button href="/kontakt" size="lg" className="rounded-full">
-              Kontaktirajte naš tim
+              Kontakt sa timom
             </Button>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-wood-950/50" />
         <div className="absolute inset-0 flex items-center justify-center text-center px-6">
           <p className="font-serif text-2xl md:text-3xl font-bold text-white max-w-2xl">
-            Pouzdan partner za ambalažu, građu i logistiku - sve na jednom mestu.
+            Pouzdan partner za ambalažu, građu i logistiku – sve na jednom mestu.
           </p>
         </div>
       </section>

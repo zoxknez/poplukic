@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, TreePine } from "lucide-react";
 import { siteConfig } from "@/lib/site";
@@ -34,7 +34,7 @@ export function Hero() {
               </h1>
 
               <p className="mt-6 md:mt-8 text-base md:text-lg text-stone-600 leading-[1.7] max-w-md mx-auto lg:mx-0">
-                Palete, gajbice i rezana građa za poljoprivredu, industriju i izvoz -
+                Palete, gajbice i rezana građa za poljoprivredu, industriju i izvoz –
                 sertifikovano, iz jednog pogona, sa sopstvenom logistikom.
               </p>
 

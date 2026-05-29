@@ -97,7 +97,7 @@ export default function Navbar() {
               {siteConfig.phone}
             </a>
             <Button href="/kontakt" size="sm">
-              Pošaljite upit
+              Slanje upita
             </Button>
           </div>
 
@@ -163,7 +163,7 @@ export default function Navbar() {
               {siteConfig.phone}
             </a>
             <Button href="/kontakt" className="mt-4 w-full max-w-xs" onClick={() => setOpen(false)}>
-              Pošaljite upit
+              Slanje upita
             </Button>
           </div>
         </div>

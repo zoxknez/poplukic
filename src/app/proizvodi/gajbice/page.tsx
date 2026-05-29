@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
@@ -15,7 +15,7 @@ export default function GajbicePage() {
   return (
     <ProductPageLayout
       productName="Drvene gajbice"
-      sidebarNote="Za velike porudžbine obezbeđujemo besplatan uzorak gajbice pre serijske proizvodnje."
+      sidebarNote="Za velike porudžbine obezbeđen je besplatan uzorak gajbice pre serijske proizvodnje."
       hero={{
         title: "Drvene gajbice",
         description:
@@ -61,10 +61,10 @@ export default function GajbicePage() {
       <ContentBlock title="Prednosti drveta">
         <ul className="grid sm:grid-cols-2 gap-3 max-w-lg mx-auto md:max-w-none md:mx-0 text-left">
           {[
-            "Prirodna ventilacija - manje kondenzacije i buđi",
+            "Prirodna ventilacija – manje kondenzacije i buđi",
             "Čvrstoća steka - drveni uglovi izdržavaju pritisak",
             "100% biorazgradivo i reciklabilno",
-            "Bez lepkova - bezbedan kontakt sa hranom",
+            "Bez lepkova – bezbedan kontakt sa hranom",
             "Otpornost na vlagu u hladnjačama",
             "Modularne dimenzije za EUR palete",
           ].map((text) => (

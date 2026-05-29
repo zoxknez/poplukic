@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
 import { ContentBlock } from "@/components/ui/ContentBlock";
@@ -14,7 +14,7 @@ export default function RezanaGradjaPage() {
   return (
     <ProductPageLayout
       productName="Rezana građa"
-      sidebarNote="Za porudžbine preko 10 m³ obezbeđujemo popust i organizaciju transporta do vaše adrese."
+      sidebarNote="Za porudžbine preko 10 m³ obezbeđuje se popust i organizacija transporta do adrese kupca."
       hero={{
         title: "Rezana građa",
         description:

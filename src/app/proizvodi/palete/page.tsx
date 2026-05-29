@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
@@ -26,7 +26,7 @@ const catalog = [
   },
   {
     title: "Palete po meri",
-    desc: "Dimenzije, debljina dasaka i nosivost po vašem crtežu ili specifikaciji.",
+    desc: "Dimenzije, debljina dasaka i nosivost prema crtežu ili specifikaciji kupca.",
   },
 ];
 
@@ -34,11 +34,11 @@ export default function PaletePage() {
   return (
     <ProductPageLayout
       productName="Drvene palete"
-      sidebarNote="Nakon slanja upita pripremamo zvaničnu ponudu sa cenom, rokom proizvodnje i uslovima transporta u roku od 24h."
+      sidebarNote="Nakon prijema upita, kompanija priprema zvaničnu ponudu sa cenom, rokom proizvodnje i uslovima transporta u roku od 24 sata."
       hero={{
         title: "Drvene palete",
         description:
-          "Standardne EUR palete, industrijske i namenske konstrukcije - sertifikovane za domaće tržište i izvoz u EU.",
+          "Standardne EUR palete, industrijske i namenske konstrukcije – sertifikovane za domaće tržište i izvoz u EU.",
         image: "/images/palete.png",
         imageAlt: "Drvene palete POP-LUKIĆ",
         badges: ["ISPM 15", "EUR / EPAL"],
@@ -54,7 +54,7 @@ export default function PaletePage() {
           { label: "Industrijska", value: "1200 × 1000 × 144 mm" },
           { label: "Dinamička nosivost", value: "1.500 - 2.000 kg (zavisno od modela)" },
           { label: "Tretman", value: "ISPM 15 HT - fitosanitarni žig za izvoz" },
-          { label: "Materijal", value: "Topola / bor - bez kritičnih čvorova" },
+          { label: "Materijal", value: "Topola / bor – bez kritičnih čvorova" },
         ]}
       />
 
@@ -75,7 +75,7 @@ export default function PaletePage() {
       <ContentBlock title="Kvalitet i sertifikati">
         <ul className="space-y-3 max-w-md mx-auto md:mx-0 text-left md:text-left">
           {[
-            "ISPM 15 termički tretman u sopstvenim komorama za izvoz",
+            "ISPM 15 termički tretman u komorama kompanije, za izvoz",
             "Pneumatsko kovanje eksera - simetrična i stabilna konstrukcija",
             "Kontrola sirovine - bez oslabljenih mesta na kritičnim tačkama",
           ].map((text) => (
