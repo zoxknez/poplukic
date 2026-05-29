@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -6,11 +6,11 @@ import { CalculatorCard } from "@/components/ui/CalculatorCard";
 import { Select } from "@/components/ui/Select";
 
 const destinations = [
-  { id: "vojvodina", name: "Vojvodina", time: "12–24 h" },
+  { id: "vojvodina", name: "Vojvodina", time: "12-24 h" },
   { id: "beograd", name: "Beograd", time: "24 h" },
-  { id: "central", name: "Centralna Srbija", time: "24–48 h" },
+  { id: "central", name: "Centralna Srbija", time: "24-48 h" },
   { id: "south", name: "Jug Srbije", time: "48 h" },
-  { id: "eu", name: "Izvoz / EU", time: "48–72 h + carina" },
+  { id: "eu", name: "Izvoz / EU", time: "48-72 h + carina" },
 ];
 
 export function LogisticsCalculator() {
@@ -81,7 +81,7 @@ export function LogisticsCalculator() {
       >
         {destinations.map((d) => (
           <option key={d.id} value={d.id}>
-            {d.name} — {d.time}
+            {d.name} - {d.time}
           </option>
         ))}
       </Select>

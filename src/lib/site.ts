@@ -1,4 +1,4 @@
-export const siteConfig = {
+﻿export const siteConfig = {
   name: "POP-LUKIĆ DOO",
   shortName: "POP-LUKIĆ",
   tagline: "Drvena ambalaža i rezana građa",
@@ -24,14 +24,14 @@ export const siteConfig = {
     activity: "Prerada drveta",
   },
   certifications: [
-    { id: "ispm15", name: "ISPM 15", detail: "IPPC — termički tretirane palete za izvoz" },
-    { id: "fsc", name: "FSC™", detail: "FSC-C132511 — održivo šumsko drvo" },
+    { id: "ispm15", name: "ISPM 15", detail: "IPPC - termički tretirane palete za izvoz" },
+    { id: "fsc", name: "FSC™", detail: "FSC-C132511 - održivo šumsko drvo" },
   ],
   stats: [
     { value: "15.000+", label: "Gajbica dnevno" },
     { value: "20+", label: "Godina iskustva" },
     { value: "100%", label: "FSC sertifikovana sirovina" },
-    { value: "24–48h", label: "Isporuka u Srbiji" },
+    { value: "24-48h", label: "Isporuka u Srbiji" },
   ],
 } as const;
 
@@ -71,7 +71,7 @@ export const products = [
     subtitle: "Topola i hrast",
     href: "/proizvodi/rezana-gradja",
     image: "/images/lumber.png",
-    points: ["KD 8–12% ili vazdušno sušena", "Klasa A i B", "Sušara i parna komora"],
+    points: ["KD 8-12% ili vazdušno sušena", "Klasa A i B", "Sušara i parna komora"],
   },
   {
     title: "Transport",
@@ -104,7 +104,7 @@ export const processSteps = [
   {
     step: "04",
     title: "Isporuka",
-    desc: "Sopstvena logistika — brza i pouzdana dostava.",
+    desc: "Sopstvena logistika - brza i pouzdana dostava.",
     image: "/images/transport.png",
   },
 ] as const;

@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { products } from "@/lib/site";
@@ -32,7 +32,7 @@ export function ProductsShowcase() {
               <span className="block font-bold">od drveta</span>
             </h2>
             <p className="mt-5 text-stone-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-[1.0625rem]">
-              Od standardnih EUR paleta do poljoprivrednih gajbica i sušene građe — sve iz
+              Od standardnih EUR paleta do poljoprivrednih gajbica i sušene građe - sve iz
               jednog pogona, jedan kvalitet.
             </p>
           </div>
@@ -87,7 +87,7 @@ export function ProductsShowcase() {
                     </span>
                   </div>
 
-                  {/* Copy — mobile: sve centrirano; desktop: editorial levo */}
+                  {/* Copy - mobile: sve centrirano; desktop: editorial levo */}
                   <div className="mt-5 md:mt-6 p-5 md:p-6 rounded-2xl bg-gradient-to-br from-cream to-wood-50/40 border border-wood-100/80 group-hover:border-wood-200/80 transition-colors">
                     <div className="flex flex-col items-center text-center lg:flex-row lg:items-start lg:justify-between lg:gap-5 lg:text-left">
                       <div className="w-full min-w-0 flex-1">
@@ -138,7 +138,7 @@ export function ProductsShowcase() {
         <div className="mt-16 md:mt-20 rounded-2xl bg-wood-950 px-6 py-5 md:px-8 md:py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-center md:text-left">
           <p className="text-sm text-stone-300 max-w-xl leading-relaxed mx-auto md:mx-0">
             Svi proizvodi sa <span className="text-white font-medium">ISPM 15</span> i{" "}
-            <span className="text-white font-medium">FSC™</span> dokumentacijom — specifikacije po
+            <span className="text-white font-medium">FSC™</span> dokumentacijom - specifikacije po
             meri i logistika u ponudi.
           </p>
           <Link

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
@@ -19,7 +19,7 @@ export default function GajbicePage() {
       hero={{
         title: "Drvene gajbice",
         description:
-          "Prozračna drvena ambalaža za sveže plodove — jednoredne, dvoredne i holandez formata. Do 15.000 komada dnevno.",
+          "Prozračna drvena ambalaža za sveže plodove - jednoredne, dvoredne i holandez formata. Do 15.000 komada dnevno.",
         image: "/images/gajbice.png",
         imageAlt: "Drvene gajbice POP-LUKIĆ",
         badges: ["15.000 kom / dan", "Poljoprivreda"],
@@ -34,8 +34,8 @@ export default function GajbicePage() {
           { label: "Holandez", value: "500 × 300 mm (različite visine)" },
           { label: "Modularno", value: "Usklađeno sa EUR paletom 1200 × 800" },
           { label: "Isporuka", value: "Sklopljene ili elementi (rasuto)" },
-          { label: "Uglovi", value: "Tvrdo drvo — stek do 500 kg" },
-          { label: "Materijal", value: "Topola — biorazgradivo, bez hemije" },
+          { label: "Uglovi", value: "Tvrdo drvo - stek do 500 kg" },
+          { label: "Materijal", value: "Topola - biorazgradivo, bez hemije" },
         ]}
       />
 
@@ -51,7 +51,7 @@ export default function GajbicePage() {
           <div className="border-l-0 md:border-l-2 border-forest-500 md:pl-5 px-1">
             <h3 className="font-semibold text-wood-950">Elementi i patosi</h3>
             <p className="text-sm text-stone-600 mt-1.5 leading-relaxed">
-              Patosi, letvice i uglovi u rasutom stanju — do 5× više komada po šleperu, sklapanje na
+              Patosi, letvice i uglovi u rasutom stanju - do 5× više komada po šleperu, sklapanje na
               licu mesta.
             </p>
           </div>
@@ -61,10 +61,10 @@ export default function GajbicePage() {
       <ContentBlock title="Prednosti drveta">
         <ul className="grid sm:grid-cols-2 gap-3 max-w-lg mx-auto md:max-w-none md:mx-0 text-left">
           {[
-            "Prirodna ventilacija — manje kondenzacije i buđi",
-            "Čvrstoća steka — drveni uglovi izdržavaju pritisak",
+            "Prirodna ventilacija - manje kondenzacije i buđi",
+            "Čvrstoća steka - drveni uglovi izdržavaju pritisak",
             "100% biorazgradivo i reciklabilno",
-            "Bez lepkova — bezbedan kontakt sa hranom",
+            "Bez lepkova - bezbedan kontakt sa hranom",
             "Otpornost na vlagu u hladnjačama",
             "Modularne dimenzije za EUR palete",
           ].map((text) => (

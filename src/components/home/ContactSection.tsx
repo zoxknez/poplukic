@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Mail, Phone, Clock, ArrowUpRight } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
@@ -29,7 +29,7 @@ const contactItems = [
   {
     icon: Clock,
     label: "Radno vreme",
-    value: "Pon–Pet 07:00–16:00",
+    value: "Pon-Pet 07:00-16:00",
     sub: "Subota po dogovoru",
     href: null,
     external: false,
@@ -54,7 +54,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid lg:grid-cols-12 gap-10 xl:gap-14 items-start">
-          {/* Left — info */}
+          {/* Left - info */}
           <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
             <div className="section-intro max-w-none lg:max-w-2xl">
               <div className="section-eyebrow">
@@ -69,7 +69,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 <span className="block font-bold">saradnju</span>
               </h2>
               <p className="mt-5 text-stone-700 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Pošaljite specifikaciju proizvoda i količinu — pripremićemo ponudu u roku od 24
+                Pošaljite specifikaciju proizvoda i količinu - pripremićemo ponudu u roku od 24
                 radna sata. Možete nas i direktno pozvati.
               </p>
             </div>
@@ -137,7 +137,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
               </div>
               <div className="h-44 bg-stone-100">
                 <iframe
-                  title="Mapa — POP-LUKIĆ"
+                  title="Mapa - POP-LUKIĆ"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(siteConfig.address.full)}&output=embed`}
                   className="w-full h-full border-0 grayscale-[30%] contrast-[1.05]"
                   loading="lazy"
@@ -158,7 +158,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
             </Link>
           </div>
 
-          {/* Right — form */}
+          {/* Right - form */}
           <div className="lg:col-span-7 w-full max-w-lg mx-auto lg:max-w-none lg:mx-0">
             <QuoteForm premium />
 

@@ -1,13 +1,13 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { CalculatorCard } from "@/components/ui/CalculatorCard";
 
 const ranges = [
-  { min: 6, max: 10, title: "KD sušena (8–10%)", use: "Nameštaj, parket, unutrašnja stolarija", risk: "Minimalan" },
+  { min: 6, max: 10, title: "KD sušena (8-10%)", use: "Nameštaj, parket, unutrašnja stolarija", risk: "Minimalan" },
   { min: 11, max: 15, title: "Vazdušno sušena (AD)", use: "Prozori, fasade, podovi", risk: "Nizak" },
   { min: 16, max: 20, title: "Građevinska", use: "Krovne konstrukcije, grede", risk: "Umeren" },
-  { min: 21, max: 50, title: "Sveža seča", use: "Oplate, jednokratna ambalaža", risk: "Visok — obavezno sušenje" },
+  { min: 21, max: 50, title: "Sveža seča", use: "Oplate, jednokratna ambalaža", risk: "Visok - obavezno sušenje" },
 ];
 
 export function HumidityGuide() {

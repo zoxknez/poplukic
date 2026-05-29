@@ -1,15 +1,15 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { CalculatorCard } from "@/components/ui/CalculatorCard";
 
 const fruits = {
-  apple: { name: "Jabuke", crate: "Dvoredna gajbica", dims: "500 × 300 × 220 mm", weight: "10–12 kg" },
-  peach: { name: "Breskve", crate: "Jednoredna gajbica", dims: "500 × 300 × 120 mm", weight: "5–7 kg" },
-  berry: { name: "Bobice", crate: "Plitki holandez", dims: "400 × 300 × 80 mm", weight: "2,5–3,5 kg" },
-  plum: { name: "Šljive", crate: "Holandez", dims: "500 × 300 × 150 mm", weight: "7–8,5 kg" },
-  tomato: { name: "Paradajz", crate: "Duboki holandez", dims: "600 × 400 × 200 mm", weight: "12–14 kg" },
+  apple: { name: "Jabuke", crate: "Dvoredna gajbica", dims: "500 × 300 × 220 mm", weight: "10-12 kg" },
+  peach: { name: "Breskve", crate: "Jednoredna gajbica", dims: "500 × 300 × 120 mm", weight: "5-7 kg" },
+  berry: { name: "Bobice", crate: "Plitki holandez", dims: "400 × 300 × 80 mm", weight: "2,5-3,5 kg" },
+  plum: { name: "Šljive", crate: "Holandez", dims: "500 × 300 × 150 mm", weight: "7-8,5 kg" },
+  tomato: { name: "Paradajz", crate: "Duboki holandez", dims: "600 × 400 × 200 mm", weight: "12-14 kg" },
 } as const;
 
 type FruitId = keyof typeof fruits;

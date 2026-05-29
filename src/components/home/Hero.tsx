@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, TreePine } from "lucide-react";
 import { siteConfig } from "@/lib/site";
@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site";
 const metrics = [
   { value: "15.000+", label: "Gajbica dnevno" },
   { value: "20+", label: "Godina iskustva" },
-  { value: "24–48h", label: "Isporuka u Srbiji" },
+  { value: "24-48h", label: "Isporuka u Srbiji" },
 ];
 
 export function Hero() {
@@ -17,7 +17,7 @@ export function Hero() {
 
       <div className="relative max-w-[88rem] mx-auto px-5 sm:px-8 lg:px-10 xl:px-14">
         <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-12 min-h-[calc(100dvh-4.25rem)] items-center py-12 md:py-16 lg:py-10">
-          {/* Copy — centered in left zone, pulled toward image */}
+          {/* Copy - centered in left zone, pulled toward image */}
           <div className="lg:col-span-6 xl:col-span-5 flex flex-col justify-center order-2 lg:order-1">
             <div className="w-full max-w-[32rem] mx-auto lg:mx-0 lg:ml-auto lg:mr-0 text-center lg:text-left">
               <div className="section-eyebrow mb-8 md:mb-10">
@@ -34,7 +34,7 @@ export function Hero() {
               </h1>
 
               <p className="mt-6 md:mt-8 text-base md:text-lg text-stone-600 leading-[1.7] max-w-md mx-auto lg:mx-0">
-                Palete, gajbice i rezana građa za poljoprivredu, industriju i izvoz —
+                Palete, gajbice i rezana građa za poljoprivredu, industriju i izvoz -
                 sertifikovano, iz jednog pogona, sa sopstvenom logistikom.
               </p>
 
@@ -69,7 +69,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Image — larger column, rounded, floating cards */}
+          {/* Image - larger column, rounded, floating cards */}
           <div className="lg:col-span-6 xl:col-span-7 order-1 lg:order-2">
             <div className="relative mx-auto lg:mx-0 max-w-xl lg:max-w-none">
               <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] xl:aspect-[16/11] rounded-3xl overflow-hidden shadow-wood-xl ring-1 ring-wood-200/40">
@@ -122,7 +122,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Metrics — full container width, centered */}
+        {/* Metrics - full container width, centered */}
         <div className="pb-10 md:pb-14 lg:pb-12 -mt-2 lg:-mt-6 relative z-10">
           <div className="panel-warm rounded-2xl md:rounded-3xl border border-wood-200/50 px-6 py-6 md:px-10 md:py-8 max-w-4xl mx-auto lg:max-w-none">
             <dl className="grid grid-cols-3 gap-4 md:gap-8 text-center">

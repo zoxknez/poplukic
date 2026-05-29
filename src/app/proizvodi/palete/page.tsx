@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
@@ -22,7 +22,7 @@ const catalog = [
   },
   {
     title: "Boks palete",
-    desc: "Sa bočnim rešetkama za voće i povrće u hladnjačama — optimalan protok vazduha.",
+    desc: "Sa bočnim rešetkama za voće i povrće u hladnjačama - optimalan protok vazduha.",
   },
   {
     title: "Palete po meri",
@@ -38,7 +38,7 @@ export default function PaletePage() {
       hero={{
         title: "Drvene palete",
         description:
-          "Standardne EUR palete, industrijske i namenske konstrukcije — sertifikovane za domaće tržište i izvoz u EU.",
+          "Standardne EUR palete, industrijske i namenske konstrukcije - sertifikovane za domaće tržište i izvoz u EU.",
         image: "/images/palete.png",
         imageAlt: "Drvene palete POP-LUKIĆ",
         badges: ["ISPM 15", "EUR / EPAL"],
@@ -52,9 +52,9 @@ export default function PaletePage() {
         rows={[
           { label: "EUR", value: "1200 × 800 × 144 mm" },
           { label: "Industrijska", value: "1200 × 1000 × 144 mm" },
-          { label: "Dinamička nosivost", value: "1.500 – 2.000 kg (zavisno od modela)" },
-          { label: "Tretman", value: "ISPM 15 HT — fitosanitarni žig za izvoz" },
-          { label: "Materijal", value: "Topola / bor — bez kritičnih čvorova" },
+          { label: "Dinamička nosivost", value: "1.500 - 2.000 kg (zavisno od modela)" },
+          { label: "Tretman", value: "ISPM 15 HT - fitosanitarni žig za izvoz" },
+          { label: "Materijal", value: "Topola / bor - bez kritičnih čvorova" },
         ]}
       />
 
@@ -76,8 +76,8 @@ export default function PaletePage() {
         <ul className="space-y-3 max-w-md mx-auto md:mx-0 text-left md:text-left">
           {[
             "ISPM 15 termički tretman u sopstvenim komorama za izvoz",
-            "Pneumatsko kovanje eksera — simetrična i stabilna konstrukcija",
-            "Kontrola sirovine — bez oslabljenih mesta na kritičnim tačkama",
+            "Pneumatsko kovanje eksera - simetrična i stabilna konstrukcija",
+            "Kontrola sirovine - bez oslabljenih mesta na kritičnim tačkama",
           ].map((text) => (
             <li key={text} className="flex gap-3 text-sm text-stone-600">
               <CheckCircle2 className="text-wood-600 shrink-0 mt-0.5" size={18} />

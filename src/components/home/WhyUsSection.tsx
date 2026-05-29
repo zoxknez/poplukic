@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Factory, ShieldCheck, Truck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -19,7 +19,7 @@ const pillars: {
     num: "01",
     icon: Factory,
     title: "Veliki kapacitet",
-    desc: "Do 15.000 gajbica dnevno i serijska proizvodnja paleta po međunarodnim standardima — bez zastoja u sezoni.",
+    desc: "Do 15.000 gajbica dnevno i serijska proizvodnja paleta po međunarodnim standardima - bez zastoja u sezoni.",
     highlight: "Serijska proizvodnja",
     stat: "15.000+",
     statLabel: "kom / dan",
@@ -41,9 +41,9 @@ const pillars: {
     num: "03",
     icon: Truck,
     title: "Sopstvena logistika",
-    desc: "Šleperi i solo kamioni — isporuka paleta i gajbica širom Srbije, bez posrednika.",
+    desc: "Šleperi i solo kamioni - isporuka paleta i gajbica širom Srbije, bez posrednika.",
     highlight: "CMR dokumentacija",
-    stat: "24–48h",
+    stat: "24-48h",
     statLabel: "isporuka",
     image: "/images/transport.png",
     accent: "amber",
@@ -96,7 +96,7 @@ export function WhyUsSection() {
               <span className="block font-bold">za vašu proizvodnju</span>
             </h2>
             <p className="mt-5 text-stone-700 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              Kapacitet, kvalitet i logistika pod jednim krovom — manje koordinacije, više
+              Kapacitet, kvalitet i logistika pod jednim krovom - manje koordinacije, više
               sigurnosti u isporuci.
             </p>
           </div>
@@ -239,7 +239,7 @@ export function WhyUsSection() {
           </div>
           <div className="bg-wood-950 px-6 py-4 md:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-center sm:text-left">
             <p className="text-sm text-stone-300 mx-auto sm:mx-0 max-w-lg">
-              <span className="text-white font-semibold">Jedan pogon</span> — palete, gajbice,
+              <span className="text-white font-semibold">Jedan pogon</span> - palete, gajbice,
               građa i transport.
             </p>
             <p className="text-xs text-stone-500">

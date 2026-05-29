@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
@@ -8,7 +8,7 @@ import { LogisticsCalculator } from "@/components/calculators/LogisticsCalculato
 export const metadata: Metadata = {
   title: "Transport i logistika",
   description:
-    "Sopstveni vozni park — šleperi do 24 t i solo kamioni. Isporuka paleta i gajbica širom Srbije i regiona.",
+    "Sopstveni vozni park - šleperi do 24 t i solo kamioni. Isporuka paleta i gajbica širom Srbije i regiona.",
 };
 
 export default function TransportPage() {
@@ -19,10 +19,10 @@ export default function TransportPage() {
       hero={{
         title: "Transport i logistika",
         description:
-          "Sopstveni kamioni i šleperi — brza isporuka ambalaže i građe. CMR dokumentacija za izvoz.",
+          "Sopstveni kamioni i šleperi - brza isporuka ambalaže i građe. CMR dokumentacija za izvoz.",
         image: "/images/transport.png",
         imageAlt: "Transport POP-LUKIĆ",
-        badges: ["24–48 h", "GPS praćenje"],
+        badges: ["24-48 h", "GPS praćenje"],
         accent: "neutral",
         backHref: "/",
         backLabel: "Nazad na početnu",
@@ -82,7 +82,7 @@ export default function TransportPage() {
               </li>
               <li className="flex gap-2">
                 <CheckCircle2 className="text-wood-600 shrink-0" size={16} />
-                Isporuka u Vojvodini za 12–24 h
+                Isporuka u Vojvodini za 12-24 h
               </li>
               <li className="flex gap-2">
                 <CheckCircle2 className="text-wood-600 shrink-0" size={16} />
@@ -96,7 +96,7 @@ export default function TransportPage() {
       <ContentBlock title="Garancija pouzdanosti">
         <ul className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto md:max-w-none md:mx-0 text-left">
           {[
-            "Tačni termini — berba ne čeka ambalažu",
+            "Tačni termini - berba ne čeka ambalažu",
             "CMR i carinska dokumentacija za izvoz",
             "Satelitsko praćenje vozila",
           ].map((text) => (

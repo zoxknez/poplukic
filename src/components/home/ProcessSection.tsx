@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import { TreePine, Flame, Factory, Truck, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { processSteps } from "@/lib/site";
@@ -32,7 +32,7 @@ export function ProcessSection() {
             <span className="block font-bold">isporuke</span>
           </h2>
           <p className="mt-5 text-stone-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-[1.0625rem]">
-            Kontrolisana proizvodnja u svakoj fazi — od sečenja drveta do isporuke na vašu
+            Kontrolisana proizvodnja u svakoj fazi - od sečenja drveta do isporuke na vašu
             adresu, bez gubljenja kvaliteta.
           </p>
         </div>
@@ -124,7 +124,7 @@ export function ProcessSection() {
           <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center px-6 py-6 md:px-10 md:py-8 text-center md:text-left">
             <div>
               <p className="text-wood-300 text-sm leading-relaxed max-w-xl mx-auto md:mx-0">
-                Svaki korak dokumentovan i proverljiv — od prijema sirovine do otpreme gotovih
+                Svaki korak dokumentovan i proverljiv - od prijema sirovine do otpreme gotovih
                 proizvoda sa sertifikatima{" "}
                 <span className="text-white font-medium">ISPM 15</span> i{" "}
                 <span className="text-white font-medium">FSC™</span>.

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import { Factory, ShieldCheck, Truck } from "lucide-react";
 import { SubPageHero } from "@/components/layout/SubPageHero";
@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "O nama",
-  description: `Kompanija ${siteConfig.name} — proizvodnja drvene ambalaže i rezane građe u Banatskom Velikom Selu.`,
+  description: `Kompanija ${siteConfig.name} - proizvodnja drvene ambalaže i rezane građe u Banatskom Velikom Selu.`,
 };
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
       <SubPageHero
         label="O kompaniji"
         title={siteConfig.name}
-        description="Proizvodnja drvene ambalaže i rezane građe u srcu Banata — od 2005. godine."
+        description="Proizvodnja drvene ambalaže i rezane građe u srcu Banata - od 2005. godine."
         image="/images/lumber.png"
         imageAlt="Pogon POP-LUKIĆ"
         badges={["Od 2005.", "FSC™", "ISPM 15"]}
@@ -41,7 +41,7 @@ export default function AboutPage() {
                   regionu.
                 </p>
                 <p>
-                  Kontrolišemo ceo lanac — od sirovine iz održivih izvora, preko sušenja i
+                  Kontrolišemo ceo lanac - od sirovine iz održivih izvora, preko sušenja i
                   termičkog tretmana, do gotovih proizvoda i isporuke sopstvenim voznim parkom.
                 </p>
               </div>
@@ -90,7 +90,7 @@ export default function AboutPage() {
               {
                 icon: Truck,
                 title: "Logistika",
-                desc: "Sopstveni transport — isporuka na vreme.",
+                desc: "Sopstveni transport - isporuka na vreme.",
               },
             ].map(({ icon: Icon, title, desc }) => (
               <div
@@ -118,7 +118,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-wood-950/50" />
         <div className="absolute inset-0 flex items-center justify-center text-center px-6">
           <p className="font-serif text-2xl md:text-3xl font-bold text-white max-w-2xl">
-            Pouzdan partner za ambalažu, građu i logistiku — sve na jednom mestu.
+            Pouzdan partner za ambalažu, građu i logistiku - sve na jednom mestu.
           </p>
         </div>
       </section>

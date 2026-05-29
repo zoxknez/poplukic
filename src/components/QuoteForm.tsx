@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle, MessageCircle } from "lucide-react";
@@ -109,7 +109,7 @@ export function QuoteForm({
       <div className="rounded-2xl border border-forest-200 bg-gradient-to-br from-forest-50 to-white p-8 text-center">
         <CheckCircle className="w-12 h-12 text-forest-600 mx-auto mb-4" />
         <h3 className="font-serif text-xl font-bold text-wood-950 mb-2">Upit je poslat</h3>
-        <p className="text-stone-600 text-sm">Hvala — javićemo vam se uskoro.</p>
+        <p className="text-stone-600 text-sm">Hvala - javićemo vam se uskoro.</p>
         <Button
           variant="outline"
           size="sm"

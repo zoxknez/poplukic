@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,7 @@ export function PalletCalculator() {
   return (
     <CalculatorCard
       title="Pomoć pri odabiru palete"
-      description="Unesite težinu tereta — dobijate preporuku modela."
+      description="Unesite težinu tereta - dobijate preporuku modela."
     >
       <div>
         <div className="flex justify-between text-sm mb-2">
