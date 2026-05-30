@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, TreePine } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { siteConfig } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const metrics = [
   { value: "15.000+", label: "Gajbica dnevno" },
@@ -41,7 +43,7 @@ export function Hero() {
               <div className="mt-9 md:mt-11 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 sm:gap-6">
                 <Link
                   href="/#proizvodi"
-                  className="inline-flex items-center justify-center gap-2.5 bg-wood-900 text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-wood-800 transition-all shadow-lg shadow-wood-900/15 hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-br from-wood-900 via-wood-800 to-wood-700 text-white text-sm font-semibold px-8 py-4 rounded-full hover:from-wood-800 hover:to-wood-650 transition-all duration-300 shadow-wood-md hover:shadow-wood-lg hover:-translate-y-0.5 w-full sm:w-auto border border-wood-900/20"
                 >
                   Proizvodni program
                   <ArrowRight size={16} strokeWidth={2} />
@@ -83,12 +85,15 @@ export function Hero() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-wood-950/25 via-transparent to-transparent pointer-events-none" />
 
-                {/* Floating badges on image */}
-                <div className="absolute top-5 left-5 right-5 flex justify-between items-start gap-3">
-                  <span className="px-3 py-2 rounded-xl bg-white/90 backdrop-blur-md border border-white/60 text-[10px] font-bold uppercase tracking-wider text-wood-900 shadow-md">
-                    {siteConfig.shortName}
-                  </span>
-                  <span className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-wood-950/75 backdrop-blur-md border border-white/10 text-[10px] font-medium text-white/90">
+                {/* Logo + badge on image */}
+                <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-5 sm:right-5 flex justify-between items-start gap-3 z-10">
+                  <Logo
+                    size="hero"
+                    href="/"
+                    priority
+                    className="rounded-2xl sm:rounded-3xl ring-2 ring-white/90 shadow-lg shadow-black/25 hover:ring-white hover:shadow-xl"
+                  />
+                  <span className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-wood-950/75 backdrop-blur-md border border-white/10 text-[10px] font-medium text-white/90 shrink-0">
                     <ShieldCheck size={12} className="text-wood-300" />
                     Sertifikovano
                   </span>
@@ -122,19 +127,26 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Metrics - full container width, centered */}
+        {/* Metrics */}
         <div className="pb-10 md:pb-14 lg:pb-12 -mt-2 lg:-mt-6 relative z-10">
-          <div className="panel-warm rounded-2xl md:rounded-3xl border border-wood-200/50 px-6 py-6 md:px-10 md:py-8 max-w-4xl mx-auto lg:max-w-none">
-            <dl className="grid grid-cols-3 gap-4 md:gap-8 text-center">
+          <div className="panel-warm rounded-2xl md:rounded-3xl border border-wood-300/45 ring-1 ring-white/60 shadow-wood-md px-4 py-3 sm:px-8 sm:py-6 md:px-10 md:py-8 max-w-4xl mx-auto lg:max-w-none">
+            <dl className="flex flex-col gap-0 sm:grid sm:grid-cols-3 sm:gap-6 md:gap-10">
               {metrics.map((m, i) => (
                 <div
                   key={m.label}
-                  className={i > 0 ? "md:border-l md:border-stone-200/90 md:pl-8" : ""}
+                  className={cn(
+                    "flex items-center gap-3 py-3.5 px-1 sm:flex-col sm:justify-center sm:gap-2 sm:py-0 sm:px-0 sm:text-center",
+                    i > 0 && "border-t border-wood-200/80 sm:border-t-0",
+                    i > 0 && "sm:border-l sm:border-wood-200/90 sm:pl-8 md:pl-10"
+                  )}
                 >
-                  <dt className="font-serif text-2xl md:text-3xl font-bold text-wood-950 tracking-tight">
+                  <dt className="font-serif text-[1.65rem] sm:text-3xl md:text-[2rem] font-bold text-wood-950 tracking-tight whitespace-nowrap shrink-0 leading-none">
                     {m.value}
                   </dt>
-                  <dd className="mt-1 text-[10px] md:text-xs text-stone-500 uppercase tracking-[0.14em]">
+                  <span className="text-wood-400/90 sm:hidden shrink-0" aria-hidden>
+                    ·
+                  </span>
+                  <dd className="min-w-0 flex-1 text-sm sm:text-[0.8125rem] md:text-sm font-semibold text-wood-800 sm:text-stone-700 leading-snug text-left sm:text-center">
                     {m.label}
                   </dd>
                 </div>

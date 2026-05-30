@@ -21,6 +21,10 @@ export default function AboutPage() {
         image="/images/lumber.png"
         imageAlt="Pogon POP-LUKIĆ"
         badges={["Od 2005.", "FSC™", "ISPM 15"]}
+        breadcrumbs={[
+          { label: "Početna", href: "/" },
+          { label: "O nama" },
+        ]}
       />
 
       <section className="py-16 md:py-24 bg-white">
@@ -51,7 +55,7 @@ export default function AboutPage() {
               {siteConfig.stats.map((s) => (
                 <div
                   key={s.label}
-                  className="panel-warm rounded-2xl border border-wood-200/50 p-6 text-center hover:-translate-y-0.5 transition-transform"
+                  className="panel-interactive rounded-2xl border border-wood-200/50 p-6 text-center"
                 >
                   <div className="font-serif text-2xl md:text-3xl font-bold text-wood-950">
                     {s.value}
@@ -95,7 +99,7 @@ export default function AboutPage() {
             ].map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="panel-warm rounded-3xl border border-wood-200/50 p-8 text-center"
+                className="panel-interactive rounded-3xl border border-wood-200/50 p-8 text-center"
               >
                 <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-wood-100 border border-wood-200/60 text-wood-700 mb-5">
                   <Icon size={26} strokeWidth={1.25} />

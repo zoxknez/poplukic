@@ -56,9 +56,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['var(--font-playfair)', 'Playfair Display', 'Georgia', 'serif'],
-        sans:  ['var(--font-outfit)', 'Outfit', 'Inter', 'sans-serif'],
-        mono:  ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+        serif: ['var(--font-serif)', 'Libre Baskerville', 'Georgia', 'serif'],
+        sans: ['var(--font-sans)', 'DM Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
       },
       fontSize: {
         '2xs': ['0.625rem', { lineHeight: '1rem' }],

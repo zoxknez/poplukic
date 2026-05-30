@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { CalculatorCard } from "@/components/ui/CalculatorCard";
+import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const ranges = [
   { min: 6, max: 10, title: "KD sušena (8-10%)", use: "Nameštaj, parket, unutrašnja stolarija", risk: "Minimalan" },
@@ -17,6 +18,14 @@ export function HumidityGuide() {
     () => ranges.find((r) => humidity >= r.min && humidity <= r.max) ?? ranges[ranges.length - 1],
     [humidity]
   );
+
+  const quoteText = [
+    "Preporuka iz vodiča za vlažnost drveta:",
+    `- Vlažnost: ${humidity}%`,
+    `- Kategorija: ${active.title}`,
+    `- Pogodno za: ${active.use}`,
+    `- Rizik deformacije: ${active.risk}`,
+  ].join("\n");
 
   return (
     <CalculatorCard
@@ -35,10 +44,14 @@ export function HumidityGuide() {
           max={50}
           value={humidity}
           onChange={(e) => setHumidity(Number(e.target.value))}
+          aria-label="Vlažnost drveta u procentima"
+          aria-valuemin={6}
+          aria-valuemax={50}
+          aria-valuenow={humidity}
         />
       </div>
 
-      <div className="rounded-2xl border border-wood-200/50 bg-cream-dark/80 p-5 space-y-3 text-sm text-center md:text-left">
+      <div className="insight-panel insight-panel-amber text-center md:text-left space-y-3 text-sm">
         <p className="font-serif font-bold text-lg text-wood-950">{active.title}</p>
         <p>
           <span className="text-stone-500">Pogodno za: </span>
@@ -49,6 +62,8 @@ export function HumidityGuide() {
           <strong className="text-wood-900">{active.risk}</strong>
         </p>
       </div>
+
+      <AddToQuoteButton text={quoteText} />
     </CalculatorCard>
   );
 }

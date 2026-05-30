@@ -34,7 +34,7 @@ const pillars: {
     highlight: "ISPM 15 · FSC™",
     stat: "100%",
     statLabel: "sertifikovano",
-    image: "/images/gajbice.png",
+    image: "/images/gajbice-branded.png",
     accent: "forest",
   },
   {
@@ -45,7 +45,7 @@ const pillars: {
     highlight: "CMR dokumentacija",
     stat: "24-48h",
     statLabel: "isporuka",
-    image: "/images/transport.png",
+    image: "/images/transport-branded.png",
     accent: "amber",
   },
 ];
@@ -139,7 +139,7 @@ export function WhyUsSection() {
             return (
               <article
                 key={pillar.num}
-                className="group panel-warm relative rounded-3xl border border-wood-200/50 overflow-hidden transition-all duration-500 hover:-translate-y-1"
+                className="group panel-interactive relative rounded-3xl border border-wood-200/50 overflow-hidden"
               >
                 <div
                   className={cn(
@@ -216,9 +216,9 @@ export function WhyUsSection() {
           <div className="grid grid-cols-2 md:grid-cols-4 h-28 md:h-36">
             {[
               "/images/palete.png",
-              "/images/gajbice.png",
+              "/images/gajbice-branded.png",
               "/images/lumber.png",
-              "/images/transport.png",
+              "/images/transport-branded.png",
             ].map((src, i) => (
               <div key={src} className="relative group/photo">
                 <Image

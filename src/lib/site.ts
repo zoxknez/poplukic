@@ -63,7 +63,7 @@ export const products = [
     title: "Drvene gajbice",
     subtitle: "Za voće i povrće",
     href: "/proizvodi/gajbice",
-    image: "/images/gajbice.png",
+    image: "/images/gajbice-branded.png",
     points: ["Jednoredne i dvoredne", "Kapacitet 15.000 kom/dan", "Sklopljene ili u elementima"],
   },
   {
@@ -77,7 +77,7 @@ export const products = [
     title: "Transport",
     subtitle: "Sopstveni vozni park",
     href: "/usluge/transport",
-    image: "/images/transport.png",
+    image: "/images/transport-branded.png",
     points: ["Šleperi do 24 t", "Srbija i region", "CMR dokumentacija"],
   },
 ] as const;
@@ -93,18 +93,18 @@ export const processSteps = [
     step: "02",
     title: "Sušenje i tretman",
     desc: "Automatizovane sušare i ISPM 15 termički tretman.",
-    image: "/images/lumber.png",
+    image: "/images/palete.png",
   },
   {
     step: "03",
     title: "Proizvodnja",
     desc: "Palete, gajbice i rezana građa po standardima.",
-    image: "/images/palete.png",
+    image: "/images/gajbice-branded.png",
   },
   {
     step: "04",
     title: "Isporuka",
     desc: "Sopstvena logistika kompanije – brza i pouzdana dostava.",
-    image: "/images/transport.png",
+    image: "/images/transport-branded.png",
   },
 ] as const;

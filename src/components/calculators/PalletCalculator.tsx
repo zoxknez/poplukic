@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { CalculatorCard } from "@/components/ui/CalculatorCard";
+import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const pallets = {
   light: { name: "Laka paleta", dynamic: "do 500 kg", dims: "Po meri" },
@@ -12,6 +13,12 @@ const pallets = {
 } as const;
 
 type LoadType = "even" | "concentrated" | "point";
+
+const loadLabels: Record<LoadType, string> = {
+  even: "Ravnomerno",
+  concentrated: "U centru",
+  point: "Tačkasto",
+};
 
 export function PalletCalculator() {
   const [weight, setWeight] = useState(1200);
@@ -27,14 +34,24 @@ export function PalletCalculator() {
     return pallets.heavy;
   }, [weight, loadType]);
 
-  const stress = Math.min(
-    100,
-    Math.round(
-      (weight /
-        (weight <= 500 ? 500 : weight <= 1500 ? 1500 : weight <= 2000 ? 2000 : 2500)) *
-        100
-    )
-  );
+  const effectiveWeight = useMemo(() => {
+    if (loadType === "point") return weight * 1.4;
+    if (loadType === "concentrated") return weight * 1.25;
+    return weight;
+  }, [weight, loadType]);
+
+  const capacity =
+    effectiveWeight <= 500 ? 500 : effectiveWeight <= 1500 ? 1500 : effectiveWeight <= 2000 ? 2000 : 2500;
+
+  const stress = Math.min(100, Math.round((effectiveWeight / capacity) * 100));
+
+  const quoteText = [
+    "Preporuka iz kalkulatora paleta:",
+    `- Model: ${recommendation.name}`,
+    `- Dimenzije: ${recommendation.dims}`,
+    `- Težina tereta: ${weight} kg (${loadLabels[loadType]})`,
+    `- Dinamička nosivost: ${recommendation.dynamic}`,
+  ].join("\n");
 
   return (
     <CalculatorCard
@@ -53,6 +70,10 @@ export function PalletCalculator() {
           step={50}
           value={weight}
           onChange={(e) => setWeight(Number(e.target.value))}
+          aria-label="Težina tereta u kilogramima"
+          aria-valuemin={100}
+          aria-valuemax={2500}
+          aria-valuenow={weight}
         />
       </div>
 
@@ -80,7 +101,7 @@ export function PalletCalculator() {
         ))}
       </div>
 
-      <div className="rounded-2xl bg-cream-dark/80 border border-wood-200/50 p-4">
+      <div className="rounded-2xl bg-cream-dark/80 border border-wood-200/50 p-4 md:p-5">
         <div className="flex justify-between text-xs text-stone-500 mb-2">
           <span>Opterećenje konstrukcije</span>
           <span
@@ -103,7 +124,7 @@ export function PalletCalculator() {
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gradient-to-br from-wood-50 to-wood-100/50 border border-wood-200/60 p-5 text-center md:text-left">
+      <div className="insight-panel text-center md:text-left">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-wood-600 mb-1">
           Preporuka
         </p>
@@ -112,6 +133,8 @@ export function PalletCalculator() {
           {recommendation.dims} · Dinamička nosivost: {recommendation.dynamic}
         </p>
       </div>
+
+      <AddToQuoteButton text={quoteText} />
     </CalculatorCard>
   );
 }

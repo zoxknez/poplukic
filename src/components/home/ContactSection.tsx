@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MapPin, Mail, Phone, Clock, ArrowUpRight } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
 import { siteConfig } from "@/lib/site";
-
+import { cn } from "@/lib/utils";
 const contactItems = [
   {
     icon: MapPin,
@@ -66,7 +66,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
               </div>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-wood-950 tracking-tight leading-[1.12] text-balance">
                 Početak
-                <span className="block font-bold">saradnju</span>
+                <span className="block font-bold">saradnje</span>
               </h2>
               <p className="mt-5 text-stone-700 leading-relaxed max-w-md mx-auto lg:mx-0">
                 Nakon prijema specifikacije proizvoda i količine, ponuda se priprema u roku od 24
@@ -96,7 +96,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
                 );
 
                 const cardClass =
-                  "panel-warm block rounded-2xl border border-wood-200/50 p-5 transition-all duration-300 hover:-translate-y-0.5 h-full text-center sm:text-left";
+                  "panel-interactive block rounded-2xl border border-wood-200/50 p-5 h-full text-center sm:text-left";
 
                 if (item.href) {
                   return (
@@ -124,7 +124,7 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
             <div className="rounded-3xl overflow-hidden border border-wood-200/50 shadow-wood-lg max-w-lg mx-auto lg:max-w-none lg:mx-0 w-full">
               <div className="relative h-40">
                 <Image
-                  src="/images/transport.png"
+                  src="/images/transport-branded.png"
                   alt="Logistika POP-LUKIĆ"
                   fill
                   className="object-cover"
@@ -160,27 +160,33 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
 
           {/* Right - form */}
           <div className="lg:col-span-7 w-full max-w-lg mx-auto lg:max-w-none lg:mx-0">
-            <QuoteForm premium />
+            <QuoteForm premium formId="upit" />
 
             {/* Trust row */}
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              {[
-                { v: "24h", l: "Odgovor na upit" },
-                { v: "100%", l: "Sertifikovano" },
-                { v: "2005.", l: "Od godine" },
-              ].map((t) => (
-                <div
-                  key={t.l}
-                  className="rounded-2xl bg-white/50 backdrop-blur-sm border border-white/80 px-3 py-3 text-center"
-                >
-                  <p className="font-serif text-lg font-bold text-wood-950">{t.v}</p>
-                  <p className="text-[10px] uppercase tracking-wider text-stone-500 mt-0.5">
-                    {t.l}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+            <div className="mt-6 panel-warm rounded-2xl border border-wood-200/60 ring-1 ring-white/70 shadow-sm px-1 py-1 sm:px-3 sm:py-3">
+              <dl className="flex flex-col sm:grid sm:grid-cols-3 sm:gap-0">
+                {[
+                  { v: "24h", l: "Odgovor na upit" },
+                  { v: "100%", l: "Sertifikovano" },
+                  { v: "2005.", l: "Od godine" },
+                ].map((t, i) => (
+                  <div
+                    key={t.l}
+                    className={cn(
+                      "flex flex-col items-center justify-center text-center px-4 py-4 sm:py-3",
+                      i > 0 && "border-t border-wood-200/80 sm:border-t-0 sm:border-l sm:border-wood-200/80"
+                    )}
+                  >
+                    <dt className="font-serif text-[1.75rem] sm:text-xl font-bold text-wood-950 leading-none tracking-tight">
+                      {t.v}
+                    </dt>
+                    <dd className="mt-2 text-xs sm:text-[10px] uppercase tracking-[0.14em] font-semibold text-wood-700 sm:text-stone-500 leading-snug">
+                      {t.l}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>          </div>
         </div>
       </div>
     </section>

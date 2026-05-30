@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { CalculatorCard } from "@/components/ui/CalculatorCard";
 import { Select } from "@/components/ui/Select";
+import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const destinations = [
   { id: "vojvodina", name: "Vojvodina", time: "12-24 h" },
@@ -31,6 +32,16 @@ export function LogisticsCalculator() {
 
   const fill = Math.min(100, Math.round((qty / result.cap) * 100));
   const destInfo = destinations.find((d) => d.id === dest)!;
+
+  const quoteText = [
+    "Preporuka iz kalkulatora transporta:",
+    `- Teret: ${cargo === "pallets" ? "Palete" : "Gajbice"}`,
+    `- Količina: ${qty} kom`,
+    `- Destinacija: ${destInfo.name}`,
+    `- Vozilo: ${result.vehicle}`,
+    `- Popunjenost: ${fill}%`,
+    `- Rok isporuke: ${destInfo.time}`,
+  ].join("\n");
 
   return (
     <CalculatorCard
@@ -71,6 +82,10 @@ export function LogisticsCalculator() {
           step={cargo === "pallets" ? 1 : 100}
           value={qty}
           onChange={(e) => setQty(Number(e.target.value))}
+          aria-label="Količina u komadima"
+          aria-valuemin={cargo === "pallets" ? 1 : 100}
+          aria-valuemax={cargo === "pallets" ? 76 : 5000}
+          aria-valuenow={qty}
         />
       </div>
 
@@ -86,7 +101,7 @@ export function LogisticsCalculator() {
         ))}
       </Select>
 
-      <div className="rounded-2xl bg-gradient-to-br from-wood-50 to-wood-100/50 border border-wood-200/60 p-5 space-y-2.5 text-sm text-center md:text-left">
+      <div className="insight-panel text-center md:text-left space-y-2.5 text-sm">
         <p>
           <span className="text-stone-500">Vozilo: </span>
           <strong className="text-wood-950">{result.vehicle}</strong>
@@ -100,6 +115,8 @@ export function LogisticsCalculator() {
           <strong className="text-wood-950">{destInfo.time}</strong>
         </p>
       </div>
+
+      <AddToQuoteButton text={quoteText} />
     </CalculatorCard>
   );
 }

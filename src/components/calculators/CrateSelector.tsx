@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { CalculatorCard } from "@/components/ui/CalculatorCard";
+import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const fruits = {
   apple: { name: "Jabuke", crate: "Dvoredna gajbica", dims: "500 × 300 × 220 mm", weight: "10-12 kg" },
@@ -17,6 +18,14 @@ type FruitId = keyof typeof fruits;
 export function CrateSelector() {
   const [selected, setSelected] = useState<FruitId>("apple");
   const info = fruits[selected];
+
+  const quoteText = [
+    "Preporuka iz kalkulatora gajbica:",
+    `- Kultura: ${info.name}`,
+    `- Gajbica: ${info.crate}`,
+    `- Dimenzije: ${info.dims}`,
+    `- Neto težina: ${info.weight}`,
+  ].join("\n");
 
   return (
     <CalculatorCard
@@ -42,7 +51,7 @@ export function CrateSelector() {
         ))}
       </div>
 
-      <div className="rounded-2xl bg-gradient-to-br from-forest-50 to-forest-100/40 border border-forest-200/60 p-5 space-y-3 text-center md:text-left">
+      <div className="insight-panel insight-panel-forest text-center md:text-left">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-forest-700">
           Preporučeno
         </p>
@@ -58,6 +67,8 @@ export function CrateSelector() {
           </div>
         </dl>
       </div>
+
+      <AddToQuoteButton text={quoteText} />
     </CalculatorCard>
   );
 }

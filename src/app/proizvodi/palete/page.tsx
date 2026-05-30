@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { CheckCircle2 } from "lucide-react";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
 import { ContentBlock } from "@/components/ui/ContentBlock";
+import { FeatureCard } from "@/components/ui/FeatureCard";
+import { CheckList } from "@/components/ui/CheckList";
 import { PalletCalculator } from "@/components/calculators/PalletCalculator";
 
 export const metadata: Metadata = {
@@ -61,30 +62,19 @@ export default function PaletePage() {
       <ContentBlock title="Proizvodni program">
         <div className="grid sm:grid-cols-2 gap-4">
           {catalog.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl border border-wood-200/40 bg-white/60 p-5 hover:border-wood-300/60 transition-colors text-center md:text-left"
-            >
-              <h3 className="font-semibold text-wood-950">{item.title}</h3>
-              <p className="text-sm text-stone-600 mt-2 leading-relaxed">{item.desc}</p>
-            </div>
+            <FeatureCard key={item.title} title={item.title} description={item.desc} />
           ))}
         </div>
       </ContentBlock>
 
       <ContentBlock title="Kvalitet i sertifikati">
-        <ul className="space-y-3 max-w-md mx-auto md:mx-0 text-left md:text-left">
-          {[
+        <CheckList
+          items={[
             "ISPM 15 termički tretman u komorama kompanije, za izvoz",
             "Pneumatsko kovanje eksera - simetrična i stabilna konstrukcija",
             "Kontrola sirovine - bez oslabljenih mesta na kritičnim tačkama",
-          ].map((text) => (
-            <li key={text} className="flex gap-3 text-sm text-stone-600">
-              <CheckCircle2 className="text-wood-600 shrink-0 mt-0.5" size={18} />
-              {text}
-            </li>
-          ))}
-        </ul>
+          ]}
+        />
       </ContentBlock>
     </ProductPageLayout>
   );

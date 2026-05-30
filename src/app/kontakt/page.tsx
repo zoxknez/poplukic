@@ -18,6 +18,10 @@ export default function ContactPage() {
         image="/images/palete.png"
         imageAlt="Kontakt POP-LUKIĆ"
         badges={["24h odgovor", "Besplatan savet"]}
+        breadcrumbs={[
+          { label: "Početna", href: "/" },
+          { label: "Kontakt" },
+        ]}
       />
       <ContactSection compact />
     </>

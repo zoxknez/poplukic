@@ -60,7 +60,7 @@ export function ProcessSection() {
               return (
                 <article
                   key={step.step}
-                  className="group panel-warm relative rounded-3xl border border-wood-200/45 overflow-hidden transition-all duration-500 hover:-translate-y-1"
+                  className="group panel-interactive relative rounded-3xl border border-wood-200/45 overflow-hidden"
                 >
                   {/* Step image */}
                   <div className="relative h-36 md:h-40 overflow-hidden">

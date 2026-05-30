@@ -6,12 +6,12 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-wood-800 text-white hover:bg-wood-700 shadow-md hover:shadow-lg border border-wood-900/10",
+    "bg-gradient-to-br from-wood-900 via-wood-800 to-wood-700 text-white hover:from-wood-800 hover:via-wood-750 hover:to-wood-650 shadow-wood-md hover:shadow-wood-lg border border-wood-900/25 hover:-translate-y-0.5 active:translate-y-0",
   secondary:
-    "bg-forest-800 text-white hover:bg-forest-700 shadow-md border border-forest-900/10",
+    "bg-gradient-to-br from-forest-800 via-forest-700 to-forest-600 text-white hover:from-forest-700 hover:to-forest-550 shadow-md hover:shadow-lg border border-forest-900/20 hover:-translate-y-0.5",
   outline:
-    "bg-transparent text-wood-900 border-2 border-wood-300 hover:border-wood-600 hover:bg-wood-50",
-  ghost: "bg-transparent text-wood-800 hover:bg-wood-100",
+    "bg-white/80 backdrop-blur-sm text-wood-900 border-2 border-wood-200/80 hover:border-wood-500 hover:bg-wood-50 shadow-sm hover:shadow-wood-sm hover:-translate-y-0.5",
+  ghost: "bg-transparent text-wood-800 hover:bg-wood-100/80",
 };
 
 const sizes: Record<Size, string> = {
@@ -42,7 +42,7 @@ export function Button({
   onClick,
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wood-500 focus-visible:ring-offset-2 disabled:opacity-60 disabled:pointer-events-none",
+    "inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wood-500 focus-visible:ring-offset-2 disabled:opacity-60 disabled:pointer-events-none disabled:transform-none",
     variants[variant],
     sizes[size],
     className

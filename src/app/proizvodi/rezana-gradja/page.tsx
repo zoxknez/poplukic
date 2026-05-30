@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { SpecTable } from "@/components/SpecTable";
 import { ContentBlock } from "@/components/ui/ContentBlock";
+import { FeatureCard } from "@/components/ui/FeatureCard";
 import { HumidityGuide } from "@/components/calculators/HumidityGuide";
 
 export const metadata: Metadata = {
@@ -48,20 +49,14 @@ export default function RezanaGradjaPage() {
 
       <ContentBlock title="Tehnologija prerade">
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-wood-200/50 bg-gradient-to-br from-wood-50/80 to-white/60 p-6 text-center md:text-left">
-            <h3 className="font-serif text-lg font-bold text-wood-950">Kompjutersko sušenje</h3>
-            <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-              Kondenzacione i konvencionalne sušare kapaciteta 200 m³. Softver prati temperaturu i
-              vlažnost u realnom vremenu - sprečava unutrašnja pucanja.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-forest-200/50 bg-gradient-to-br from-forest-50/80 to-white/60 p-6 text-center md:text-left">
-            <h3 className="font-serif text-lg font-bold text-wood-950">Parenje drveta</h3>
-            <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-              Parna komora za ujednačavanje boje, sterilizaciju i povećanje elastičnosti drveta pre
-              dalje obrade (bukva, orah i druge vrste po zahtevu).
-            </p>
-          </div>
+          <FeatureCard
+            title="Kompjutersko sušenje"
+            description="Kondenzacione i konvencionalne sušare kapaciteta 200 m³. Softver prati temperaturu i vlažnost u realnom vremenu - sprečava unutrašnja pucanja."
+          />
+          <FeatureCard
+            title="Parenje drveta"
+            description="Parna komora za ujednačavanje boje, sterilizaciju i povećanje elastičnosti drveta pre dalje obrade (bukva, orah i druge vrste po zahtevu)."
+          />
         </div>
       </ContentBlock>
     </ProductPageLayout>

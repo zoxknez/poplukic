@@ -1,4 +1,5 @@
 import { ShieldCheck, TreePine } from "lucide-react";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { PageHeader } from "@/components/ui/PageHeader";
 
@@ -23,7 +24,7 @@ export function CertificatesSection() {
           {siteConfig.certifications.map((cert) => (
             <div
               key={cert.id}
-              className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 md:p-10 text-center hover:bg-white/8 hover:border-white/20 transition-all duration-300"
+              className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 md:p-10 text-center hover:bg-white/10 hover:border-white/25 transition-all duration-300 hover:-translate-y-1"
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-transparent via-wood-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
@@ -45,6 +46,12 @@ export function CertificatesSection() {
               <p className="text-stone-400 text-sm mt-3 leading-relaxed max-w-xs mx-auto">
                 {cert.detail}
               </p>
+              <Link
+                href="/kontakt"
+                className="inline-flex mt-5 text-xs font-semibold uppercase tracking-wider text-wood-300 hover:text-white transition-colors"
+              >
+                Zatraži dokumentaciju →
+              </Link>
             </div>
           ))}
         </div>
