@@ -16,15 +16,17 @@ export default function GajbicePage() {
   return (
     <ProductPageLayout
       productName="Drvene gajbice"
+      href="/proizvodi/gajbice"
       sidebarNote="Za velike porudžbine obezbeđen je besplatan uzorak gajbice pre serijske proizvodnje."
       hero={{
+        code: "GAJ",
         title: "Drvene gajbice",
+        titleAccent: "za svaku berbu.",
         description:
           "Prozračna drvena ambalaža za sveže plodove - jednoredne, dvoredne i holandez formata. Do 15.000 komada dnevno.",
         image: "/images/gajbice-branded.png",
         imageAlt: "Drvene gajbice POP-LUKIĆ",
         badges: ["15.000 kom / dan", "Poljoprivreda"],
-        accent: "forest",
       }}
     >
       <CrateSelector />
@@ -40,7 +42,7 @@ export default function GajbicePage() {
         ]}
       />
 
-      <ContentBlock title="Ponuda" accent="forest">
+      <ContentBlock title="Ponuda" index="A">
         <div className="grid sm:grid-cols-2 gap-4">
           <FeatureCard
             title="Sklopljene (gotove) gajbice"
@@ -53,15 +55,15 @@ export default function GajbicePage() {
         </div>
       </ContentBlock>
 
-      <ContentBlock title="Prednosti drveta" accent="forest">
+      <ContentBlock title="Prednosti drveta" index="B">
         <CheckList
-          accent="forest"
+         
           columns={2}
           items={[
-            "Prirodna ventilacija – manje kondenzacije i buđi",
+            "Prirodna ventilacija - manje kondenzacije i buđi",
             "Čvrstoća steka - drveni uglovi izdržavaju pritisak",
             "100% biorazgradivo i reciklabilno",
-            "Bez lepkova – bezbedan kontakt sa hranom",
+            "Bez lepkova - bezbedan kontakt sa hranom",
             "Otpornost na vlagu u hladnjačama",
             "Modularne dimenzije za EUR palete",
           ]}

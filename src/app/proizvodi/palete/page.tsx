@@ -35,15 +35,17 @@ export default function PaletePage() {
   return (
     <ProductPageLayout
       productName="Drvene palete"
+      href="/proizvodi/palete"
       sidebarNote="Nakon prijema upita, kompanija priprema zvaničnu ponudu sa cenom, rokom proizvodnje i uslovima transporta u roku od 24 sata."
       hero={{
+        code: "PAL",
         title: "Drvene palete",
+        titleAccent: "nose svaki teret.",
         description:
-          "Standardne EUR palete, industrijske i namenske konstrukcije – sertifikovane za domaće tržište i izvoz u EU.",
+          "Standardne EUR palete, industrijske i namenske konstrukcije - sertifikovane za domaće tržište i izvoz u EU.",
         image: "/images/palete.png",
         imageAlt: "Drvene palete POP-LUKIĆ",
         badges: ["ISPM 15", "EUR / EPAL"],
-        accent: "wood",
       }}
     >
       <PalletCalculator />
@@ -55,11 +57,11 @@ export default function PaletePage() {
           { label: "Industrijska", value: "1200 × 1000 × 144 mm" },
           { label: "Dinamička nosivost", value: "1.500 - 2.000 kg (zavisno od modela)" },
           { label: "Tretman", value: "ISPM 15 HT - fitosanitarni žig za izvoz" },
-          { label: "Materijal", value: "Topola / bor – bez kritičnih čvorova" },
+          { label: "Materijal", value: "Topola / bor - bez kritičnih čvorova" },
         ]}
       />
 
-      <ContentBlock title="Proizvodni program">
+      <ContentBlock title="Proizvodni program" index="A">
         <div className="grid sm:grid-cols-2 gap-4">
           {catalog.map((item) => (
             <FeatureCard key={item.title} title={item.title} description={item.desc} />
@@ -67,7 +69,7 @@ export default function PaletePage() {
         </div>
       </ContentBlock>
 
-      <ContentBlock title="Kvalitet i sertifikati">
+      <ContentBlock title="Kvalitet i sertifikati" index="B">
         <CheckList
           items={[
             "ISPM 15 termički tretman u komorama kompanije, za izvoz",

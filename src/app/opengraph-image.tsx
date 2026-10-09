@@ -22,8 +22,8 @@ export default async function OpenGraphImage() {
           alignItems: "center",
           justifyContent: "center",
           padding: 48,
-          background: "linear-gradient(135deg, #faf8f5 0%, #f0ebe3 55%, #e8dfd2 100%)",
-          fontFamily: "Georgia, serif",
+          background: "radial-gradient(ellipse at 70% 30%, #222e52 0%, #0d152c 55%, #070c1c 100%)",
+          fontFamily: "Arial, sans-serif",
         }}
       >
         <div style={{ display: "flex", marginBottom: 28 }}>
@@ -35,7 +35,8 @@ export default async function OpenGraphImage() {
             height={220}
             style={{
               borderRadius: 24,
-              boxShadow: "0 20px 48px rgba(44,26,20,0.16)",
+              boxShadow: "0 20px 48px rgba(0,0,0,0.5)",
+              border: "2px solid rgba(216,180,106,0.6)",
             }}
           />
         </div>
@@ -45,9 +46,10 @@ export default async function OpenGraphImage() {
             flexDirection: "column",
             alignItems: "center",
             fontSize: 52,
-            fontWeight: 700,
+            fontWeight: 800,
             lineHeight: 1.05,
-            color: "#2C1A14",
+            color: "#ffffff",
+            textTransform: "uppercase",
             marginBottom: 16,
           }}
         >
@@ -57,7 +59,7 @@ export default async function OpenGraphImage() {
           style={{
             display: "flex",
             fontSize: 24,
-            color: "#57534e",
+            color: "#d8b46a",
             lineHeight: 1.4,
           }}
         >
@@ -67,7 +69,7 @@ export default async function OpenGraphImage() {
           style={{
             display: "flex",
             fontSize: 18,
-            color: "#78716c",
+            color: "rgba(255,255,255,0.55)",
             marginTop: 20,
           }}
         >

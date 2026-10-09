@@ -15,15 +15,17 @@ export default function RezanaGradjaPage() {
   return (
     <ProductPageLayout
       productName="Rezana građa"
+      href="/proizvodi/rezana-gradja"
       sidebarNote="Za porudžbine preko 10 m³ obezbeđuje se popust i organizacija transporta do adrese kupca."
       hero={{
+        code: "GRA",
         title: "Rezana građa",
+        titleAccent: "topola i hrast.",
         description:
           "Topola za ambalažu i industriju, hrast za stolariju i parket. Kompjutersko sušenje i parenje u sopstvenom pogonu.",
         image: "/images/lumber.png",
         imageAlt: "Rezana građa POP-LUKIĆ",
         badges: ["KD 10-12%", "Sušara 200 m³"],
-        accent: "wood",
       }}
     >
       <HumidityGuide />
@@ -47,7 +49,7 @@ export default function RezanaGradjaPage() {
         ]}
       />
 
-      <ContentBlock title="Tehnologija prerade">
+      <ContentBlock title="Tehnologija prerade" index="A">
         <div className="grid sm:grid-cols-2 gap-4">
           <FeatureCard
             title="Kompjutersko sušenje"

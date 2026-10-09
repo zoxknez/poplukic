@@ -1,38 +1,19 @@
-import Image from "next/image";
-import Link from "next/link";
-import { MapPin, Mail, Phone, Clock, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
 import { siteConfig } from "@/lib/site";
+import { MaskLines, Reveal } from "@/components/motion";
+import { OpenBadge } from "@/components/OpenBadge";
 import { cn } from "@/lib/utils";
-const contactItems = [
+
+const rows = [
+  { k: "Telefon", v: siteConfig.phone, href: siteConfig.phoneHref, big: true },
+  { k: "Email", v: siteConfig.email, href: `mailto:${siteConfig.email}`, big: false },
   {
-    icon: MapPin,
-    label: "Adresa pogona",
-    value: siteConfig.address.full,
+    k: "Pogon",
+    v: siteConfig.address.full,
     href: `https://maps.google.com/?q=${encodeURIComponent(siteConfig.address.full)}`,
+    big: false,
     external: true,
-  },
-  {
-    icon: Phone,
-    label: "Telefon",
-    value: siteConfig.phone,
-    href: siteConfig.phoneHref,
-    external: false,
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: siteConfig.email,
-    href: `mailto:${siteConfig.email}`,
-    external: false,
-  },
-  {
-    icon: Clock,
-    label: "Radno vreme",
-    value: "Pon-Pet 07:00-16:00",
-    sub: "Subota po dogovoru",
-    href: null,
-    external: false,
   },
 ];
 
@@ -44,150 +25,88 @@ export function ContactSection({ compact = false }: ContactSectionProps) {
   return (
     <section
       id="kontakt"
-      className={`relative overflow-hidden ${compact ? "py-12 md:py-16" : "py-20 md:py-28 lg:py-32"}`}
+      className={cn("relative overflow-hidden bg-pine-100", compact ? "py-16 md:py-24" : "py-24 md:py-36")}
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cream-dark via-[#ebe4d8] to-cream" />
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-wood-400/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[min(520px,55vw)] h-[min(520px,55vw)] bg-forest-600/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute inset-0 grain-overlay opacity-[0.3] pointer-events-none" />
+      <div aria-hidden className="absolute inset-0 bg-blueprint-ink opacity-70" />
+      <div className="relative mx-auto grid max-w-[90rem] gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-10">
+        <div className="lg:col-span-5">
+          {!compact && (
+            <Reveal className="flex items-center gap-4">
+              <span className="eyebrow text-stamp">(06)</span>
+              <span className="eyebrow text-ink/50">Kontakt</span>
+            </Reveal>
+          )}
+          <h2 className="mt-6 font-display text-[clamp(3rem,7vw,6.5rem)] text-navy-900">
+            <MaskLines
+              lines={[
+                "Pošaljite",
+                <span key="s" className="accent-serif text-gold-700 text-[1.05em]">
+                  specifikaciju.
+                </span>,
+              ]}
+            />
+          </h2>
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-md leading-relaxed text-ink/65">
+              Nakon prijema specifikacije proizvoda i količine, ponuda se priprema u roku od 24
+              radna sata. Dostupan je i direktan telefonski kontakt.
+            </p>
+          </Reveal>
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-10">
-        <div className="grid lg:grid-cols-12 gap-10 xl:gap-14 items-start">
-          {/* Left - info */}
-          <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
-            <div className="section-intro max-w-none lg:max-w-2xl">
-              <div className="section-eyebrow">
-                <span className="section-eyebrow-line bg-wood-500" aria-hidden />
-                <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-wood-700">
-                  Kontakt
-                </p>
-                <span className="section-eyebrow-line bg-wood-500 lg:hidden" aria-hidden />
-              </div>
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-wood-950 tracking-tight leading-[1.12] text-balance">
-                Početak
-                <span className="block font-bold">saradnje</span>
-              </h2>
-              <p className="mt-5 text-stone-700 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Nakon prijema specifikacije proizvoda i količine, ponuda se priprema u roku od 24
-                radna sata. Dostupan je i direktan telefonski kontakt.
-              </p>
-            </div>
-
-            {/* Contact cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 max-w-lg mx-auto lg:max-w-none lg:mx-0 w-full">
-              {contactItems.map((item) => {
-                const Icon = item.icon;
-                const inner = (
-                  <>
-                    <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-wood-100/80 border border-wood-200/60 text-wood-700 mb-4 mx-auto sm:mx-0">
-                      <Icon size={18} strokeWidth={1.5} />
-                    </span>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
-                      {item.label}
-                    </p>
-                    <p className="mt-1.5 text-sm font-semibold text-wood-950 leading-snug">
-                      {item.value}
-                    </p>
-                    {"sub" in item && item.sub && (
-                      <p className="text-xs text-stone-500 mt-0.5">{item.sub}</p>
-                    )}
-                  </>
-                );
-
-                const cardClass =
-                  "panel-interactive block rounded-2xl border border-wood-200/50 p-5 h-full text-center sm:text-left";
-
-                if (item.href) {
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noopener noreferrer" : undefined}
-                      className={cardClass}
-                    >
-                      {inner}
-                    </a>
-                  );
-                }
-
-                return (
-                  <div key={item.label} className={cardClass}>
-                    {inner}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Map + image accent */}
-            <div className="rounded-3xl overflow-hidden border border-wood-200/50 shadow-wood-lg max-w-lg mx-auto lg:max-w-none lg:mx-0 w-full">
-              <div className="relative h-40">
-                <Image
-                  src="/images/transport-branded.png"
-                  alt="Logistika POP-LUKIĆ"
-                  fill
-                  className="object-cover"
-                  sizes="500px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-wood-950/80 via-wood-950/30 to-transparent" />
-                <p className="absolute bottom-4 inset-x-0 text-center text-white text-sm font-medium px-4">
-                  Banat · {siteConfig.address.city}
-                </p>
-              </div>
-              <div className="h-44 bg-stone-100">
-                <iframe
-                  title="Mapa - POP-LUKIĆ"
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(siteConfig.address.full)}&output=embed`}
-                  className="w-full h-full border-0 grayscale-[30%] contrast-[1.05]"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </div>
-
-            <Link
-              href="/o-nama"
-              className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-wood-800 hover:text-wood-600 transition-colors group mx-auto lg:mx-0"
-            >
-              Više o kompaniji
-              <ArrowUpRight
-                size={16}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </Link>
-          </div>
-
-          {/* Right - form */}
-          <div className="lg:col-span-7 w-full max-w-lg mx-auto lg:max-w-none lg:mx-0">
-            <QuoteForm premium formId="upit" />
-
-            {/* Trust row */}
-            <div className="mt-6 panel-warm rounded-2xl border border-wood-200/60 ring-1 ring-white/70 shadow-sm px-1 py-1 sm:px-3 sm:py-3">
-              <dl className="flex flex-col sm:grid sm:grid-cols-3 sm:gap-0">
-                {[
-                  { v: "24h", l: "Odgovor na upit" },
-                  { v: "100%", l: "Sertifikovano" },
-                  { v: "2005.", l: "Od godine" },
-                ].map((t, i) => (
-                  <div
-                    key={t.l}
+          <Reveal delay={0.15} className="mt-12 border-t border-ink/15">
+            {rows.map((r) => (
+              <a
+                key={r.k}
+                href={r.href}
+                target={r.external ? "_blank" : undefined}
+                rel={r.external ? "noopener noreferrer" : undefined}
+                className="group flex items-center justify-between gap-6 border-b border-ink/15 py-5"
+              >
+                <span className="min-w-0">
+                  <span className="eyebrow block text-ink/45">{r.k}</span>
+                  <span
                     className={cn(
-                      "flex flex-col items-center justify-center text-center px-4 py-4 sm:py-3",
-                      i > 0 && "border-t border-wood-200/80 sm:border-t-0 sm:border-l sm:border-wood-200/80"
+                      "mt-1.5 block break-words text-navy-900 transition-colors group-hover:text-gold-700",
+                      r.big ? "font-display text-4xl md:text-5xl" : "text-lg font-medium"
                     )}
                   >
-                    <dt className="font-serif text-[1.75rem] sm:text-xl font-bold text-wood-950 leading-none tracking-tight">
-                      {t.v}
-                    </dt>
-                    <dd className="mt-2 text-xs sm:text-[10px] uppercase tracking-[0.14em] font-semibold text-wood-700 sm:text-stone-500 leading-snug">
-                      {t.l}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>          </div>
+                    {r.v}
+                  </span>
+                </span>
+                <ArrowUpRight
+                  size={20}
+                  className="shrink-0 text-ink/40 transition-transform duration-500 group-hover:rotate-45 group-hover:text-gold-700"
+                />
+              </a>
+            ))}
+            <div className="flex items-center justify-between gap-6 border-b border-ink/15 py-5">
+              <span>
+                <span className="eyebrow block text-ink/45">Radno vreme</span>
+                <span className="mt-1.5 block text-lg font-medium text-navy-900">
+                  {siteConfig.hours.label}
+                </span>
+                <span className="text-sm text-ink/50">{siteConfig.hours.sub}</span>
+              </span>
+              <OpenBadge />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.2} className="mt-10 overflow-hidden rounded-lg ring-1 ring-ink/10">
+            <iframe
+              title="Mapa - POP-LUKIĆ"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(siteConfig.address.full)}&output=embed`}
+              className="h-56 w-full border-0 grayscale-[85%] sepia-[20%] contrast-[1.05]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </Reveal>
         </div>
+
+        <Reveal delay={0.1} className="lg:col-span-6 lg:col-start-7">
+          <div className="lg:sticky lg:top-28">
+            <QuoteForm formId="upit" />
+          </div>
+        </Reveal>
       </div>
     </section>
   );

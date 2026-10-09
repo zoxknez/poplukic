@@ -1,30 +1,44 @@
 "use client";
 
-import { Phone, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MessageCircle, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
-const whatsappHref = `https://wa.me/38113881200?text=${encodeURIComponent(
-  "Zdravo, zanima me ponuda za proizvode POP-LUKIĆ."
-)}`;
-
+/** Diskretan dock koji se pojavljuje tek posle hero sekcije. */
 export function FloatingContact() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.7);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col gap-3">
+    <div
+      className={cn(
+        "fixed bottom-4 right-4 z-40 flex items-center gap-1 rounded-full border border-white/10 bg-navy-950/85 p-1 shadow-[0_20px_40px_-15px_rgb(7_12_28/0.6)] backdrop-blur-xl transition-all duration-500 ease-[var(--ease-out-expo)] md:bottom-6 md:right-6",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+      )}
+    >
       <a
-        href={whatsappHref}
+        href={siteConfig.whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex items-center justify-center w-13 h-13 w-[3.25rem] h-[3.25rem] rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 hover:shadow-xl hover:shadow-[#25D366]/40 hover:scale-105 transition-all duration-300 ring-4 ring-white/80"
         aria-label="WhatsApp kontakt"
+        className="flex size-11 items-center justify-center rounded-full text-[#25D366] transition hover:bg-white/10"
       >
-        <MessageCircle size={22} className="group-hover:scale-110 transition-transform" />
+        <MessageCircle size={20} />
       </a>
       <a
         href={siteConfig.phoneHref}
-        className="group flex items-center justify-center w-[3.25rem] h-[3.25rem] rounded-full bg-gradient-to-br from-wood-900 to-wood-700 text-white shadow-wood-lg hover:shadow-wood-xl hover:scale-105 transition-all duration-300 ring-4 ring-white/80 md:hidden"
         aria-label={`Pozovite ${siteConfig.phone}`}
+        className="flex h-11 items-center gap-2 rounded-full bg-gold-400 px-4 text-sm font-semibold text-navy-950 transition hover:bg-gold-300"
       >
-        <Phone size={20} className="group-hover:scale-110 transition-transform" />
+        <Phone size={16} />
+        <span className="hidden sm:inline">Pozovite</span>
       </a>
     </div>
   );

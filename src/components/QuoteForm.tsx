@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Send, CheckCircle, AlertCircle, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { AlertCircle, ArrowUpRight, Check, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { cn } from "@/lib/utils";
@@ -14,10 +13,8 @@ type QuoteFormProps = {
   defaultMessage?: string;
   title?: string;
   description?: string;
-  compact?: boolean;
-  bare?: boolean;
-  premium?: boolean;
   formId?: string;
+  className?: string;
 };
 
 export function QuoteForm({
@@ -25,15 +22,14 @@ export function QuoteForm({
   defaultMessage = "",
   title = "Zahtev za ponudu",
   description = "Odgovor stiže u roku od 24 radna sata.",
-  compact = false,
-  bare = false,
-  premium = false,
   formId = "upit",
+  className,
 }: QuoteFormProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [message, setMessage] = useState(defaultMessage);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [flash, setFlash] = useState(false);
 
   useEffect(() => {
     const prefill = consumeQuotePrefill();
@@ -41,7 +37,12 @@ export function QuoteForm({
 
     const handler = (event: Event) => {
       const detail = (event as CustomEvent<string>).detail;
-      if (detail) setMessage(detail);
+      if (detail) {
+        setMessage(detail);
+        setStatus("idle");
+        setFlash(true);
+        window.setTimeout(() => setFlash(false), 1400);
+      }
     };
 
     window.addEventListener("quote-prefill", handler);
@@ -99,139 +100,119 @@ export function QuoteForm({
     }
   }
 
-  const formFields = (
-    <form onSubmit={handleSubmit} className="space-y-4" aria-labelledby={`${formId}-title`}>
-      <input
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        className="hidden"
-        aria-hidden
-      />
-
-      <Input name="name" label="Ime i prezime / firma *" required placeholder="Ime i prezime ili naziv firme" />
-      <Input
-        name="email"
-        type="email"
-        label="Email *"
-        required
-        placeholder="primer@email.rs"
-      />
-      <Input name="phone" type="tel" label="Telefon" placeholder="+381 6X XXX XXXX" />
-      <Textarea
-        name="message"
-        label="Poruka *"
-        required
-        rows={compact ? 4 : 5}
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Opišite proizvod, količinu, rok isporuke..."
-      />
-
-      <label className="flex items-start gap-3 text-sm text-stone-600 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={privacyAccepted}
-          onChange={(e) => setPrivacyAccepted(e.target.checked)}
-          className="mt-1 rounded border-stone-300 text-wood-700 focus:ring-wood-500"
-          required
-        />
-        <span>
-          Saglasan/saglasna sam sa{" "}
-          <Link href="/privacy" className="text-wood-800 font-medium hover:underline">
-            politikom privatnosti
-          </Link>
-          . *
-        </span>
-      </label>
-
-      {status === "error" && (
-        <p className="flex items-center gap-2 text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
-          <AlertCircle size={16} className="shrink-0" />
-          {errorMsg}
-        </p>
-      )}
-
-      <Button type="submit" className="w-full rounded-full" disabled={status === "loading"}>
-        {status === "loading" ? "Slanje..." : "Slanje upita"}
-        <Send size={16} />
-      </Button>
-    </form>
-  );
-
-  if (status === "success") {
-    const successBox = (
-      <div className="rounded-2xl border border-forest-200 bg-gradient-to-br from-forest-50 to-white p-8 text-center">
-        <CheckCircle className="w-12 h-12 text-forest-600 mx-auto mb-4" />
-        <h3 className="font-serif text-xl font-bold text-wood-950 mb-2">Upit je poslat</h3>
-        <p className="text-stone-600 text-sm">Upit je primljen. Odgovor stiže uskoro.</p>
-        <Button
-          variant="outline"
-          size="sm"
-          className="mt-6 rounded-full"
-          onClick={() => setStatus("idle")}
-        >
-          Novi upit
-        </Button>
-      </div>
-    );
-
-    if (premium) {
-      return (
-        <div id={formId} className="quote-form-shell scroll-mt-28">
-          <div className="quote-form-inner p-6 md:p-8">{successBox}</div>
-        </div>
-      );
-    }
-    return (
-      <div id={formId} className="scroll-mt-28">
-        {successBox}
-      </div>
-    );
-  }
-
-  if (premium) {
-    return (
-      <div id={formId} className="quote-form-shell scroll-mt-28">
-        <div className="quote-form-inner">
-          <div className="bg-gradient-to-r from-wood-950 via-wood-900 to-wood-950 px-6 py-5 md:px-8 md:py-6 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-wood-300 mb-2">
-              <MessageCircle size={16} />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Brzi upit</span>
-            </div>
-            <h3 id={`${formId}-title`} className="font-serif text-xl md:text-2xl font-bold text-white">
-              {title}
-            </h3>
-            <p className="text-sm text-stone-400 mt-1">{description}</p>
-          </div>
-          <div className="p-6 md:p-8 lg:p-10">{formFields}</div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div
       id={formId}
       className={cn(
-        "scroll-mt-28",
-        bare
-          ? ""
-          : compact
-            ? ""
-            : "rounded-3xl border border-stone-200/80 bg-white p-6 md:p-8 shadow-wood-md panel-warm"
+        "relative isolate scroll-mt-24 overflow-hidden rounded-xl bg-navy-950 text-white shadow-[0_40px_80px_-30px_rgb(7_12_28/0.55)] ring-1 ring-white/10 transition-shadow duration-700",
+        flash && "ring-2 ring-gold-400",
+        className
       )}
     >
-      {!compact && !bare && (
-        <div className="mb-6 pb-6 border-b border-stone-200/80">
-          <h3 id={`${formId}-title`} className="font-serif text-xl font-bold text-wood-950">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-blueprint opacity-60" />
+      <div aria-hidden className="absolute -right-24 -top-24 -z-10 size-72 rounded-full bg-[radial-gradient(circle,rgb(216_180_106/0.2),transparent_65%)]" />
+
+      <div className="flex items-center justify-between border-b border-dashed border-white/15 px-6 py-3.5 md:px-8">
+        <span className="eyebrow text-[0.625rem] text-gold-400">Brzi upit</span>
+        <span className="eyebrow text-[0.625rem] text-white/40">Odgovor ≤ 24 h</span>
+      </div>
+
+      {status === "success" ? (
+        <div className="flex flex-col items-center px-6 py-16 text-center md:px-8">
+          <span className="flex size-16 items-center justify-center rounded-full bg-gold-400 text-navy-950">
+            <Check size={30} strokeWidth={2.5} />
+          </span>
+          <h3 className="mt-6 font-display text-4xl">Upit je poslat</h3>
+          <p className="mt-2 max-w-xs text-sm text-white/60">
+            Upit je primljen. Ponuda stiže na navedenu email adresu u roku od 24 radna sata.
+          </p>
+          <button
+            type="button"
+            onClick={() => setStatus("idle")}
+            className="mt-8 rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white/80 transition hover:border-gold-400 hover:text-gold-300"
+          >
+            Novi upit
+          </button>
+        </div>
+      ) : (
+        <div className="px-6 pb-8 pt-7 md:px-8 md:pb-10">
+          <h3 id={`${formId}-title`} className="font-display text-[2.5rem] md:text-5xl">
             {title}
           </h3>
-          <p className="text-stone-500 text-sm mt-1">{description}</p>
+          <p className="mt-2 text-sm text-white/55">{description}</p>
+          {product && (
+            <p className="mt-4 inline-flex items-center gap-2 rounded-sm border border-gold-400/40 bg-gold-400/10 px-2.5 py-1 eyebrow text-[0.625rem] text-gold-200">
+              Predmet · {product}
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit} className="mt-8 grid gap-7 md:grid-cols-2" aria-labelledby={`${formId}-title`}>
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+
+            <Input name="name" label="Ime i prezime / firma *" required placeholder="Naziv firme ili ime" autoComplete="organization" />
+            <Input name="email" type="email" label="Email *" required placeholder="primer@firma.rs" autoComplete="email" />
+            <div className="md:col-span-2">
+              <Input name="phone" type="tel" label="Telefon" placeholder="+381 6X XXX XXXX" autoComplete="tel" />
+            </div>
+            <div className="md:col-span-2">
+              <Textarea
+                name="message"
+                label="Specifikacija *"
+                required
+                rows={5}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Proizvod, dimenzije, količina, rok isporuke..."
+              />
+            </div>
+
+            <label className="flex cursor-pointer items-start gap-3 text-sm text-white/60 md:col-span-2">
+              <input
+                type="checkbox"
+                checked={privacyAccepted}
+                onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                className="peer sr-only"
+                required
+              />
+              <span
+                aria-hidden
+                className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[4px] border border-white/25 transition peer-checked:border-gold-400 peer-checked:bg-gold-400 peer-checked:text-navy-950 peer-focus-visible:ring-2 peer-focus-visible:ring-gold-400 text-transparent"
+              >
+                <Check size={13} strokeWidth={3} />
+              </span>
+              <span>
+                Saglasan/saglasna sam sa{" "}
+                <Link href="/privacy" className="text-gold-300 underline-offset-4 hover:underline">
+                  politikom privatnosti
+                </Link>
+                . *
+              </span>
+            </label>
+
+            {status === "error" && (
+              <p className="flex items-center gap-2 rounded-md border border-stamp/40 bg-stamp/15 px-4 py-3 text-sm text-red-200 md:col-span-2">
+                <AlertCircle size={16} className="shrink-0" />
+                {errorMsg}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="group flex items-center justify-between rounded-full bg-gold-400 py-2 pl-7 pr-2 text-sm font-semibold text-navy-950 transition hover:bg-gold-300 disabled:opacity-70 md:col-span-2"
+            >
+              {status === "loading" ? "Slanje..." : "Pošaljite upit"}
+              <span className="flex size-10 items-center justify-center rounded-full bg-navy-950 text-gold-300 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:rotate-45">
+                {status === "loading" ? (
+                  <Loader2 size={18} className="animate-spin" />
+                ) : (
+                  <ArrowUpRight size={18} />
+                )}
+              </span>
+            </button>
+          </form>
         </div>
       )}
-      {formFields}
     </div>
   );
 }

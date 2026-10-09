@@ -38,7 +38,7 @@ export default function TermsPage() {
         nadležni sud u Republici Srbiji.
       </p>
 
-      <p className="text-sm text-stone-500">Poslednja izmena: maj 2026.</p>
+      <p className="text-sm text-ink/50">Poslednja izmena: maj 2026.</p>
     </LegalPage>
   );
 }

@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { CalculatorCard } from "@/components/ui/CalculatorCard";
+import { CalculatorCard, RangeField, Readout, Segmented } from "@/components/ui/CalculatorCard";
 import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const pallets = {
@@ -14,125 +14,95 @@ const pallets = {
 
 type LoadType = "even" | "concentrated" | "point";
 
-const loadLabels: Record<LoadType, string> = {
-  even: "Ravnomerno",
-  concentrated: "U centru",
-  point: "Tačkasto",
-};
+const loadOptions = [
+  ["even", "Ravnomerno"],
+  ["concentrated", "U centru"],
+  ["point", "Tačkasto"],
+] as const;
+
+const loadFactor: Record<LoadType, number> = { even: 1, concentrated: 1.25, point: 1.4 };
 
 export function PalletCalculator() {
   const [weight, setWeight] = useState(1200);
   const [loadType, setLoadType] = useState<LoadType>("even");
 
-  const recommendation = useMemo(() => {
-    let w = weight;
-    if (loadType === "point") w *= 1.4;
-    if (loadType === "concentrated") w *= 1.25;
-    if (w <= 500) return pallets.light;
-    if (w <= 1400) return pallets.standard;
-    if (w <= 2000) return pallets.industrial;
-    return pallets.heavy;
-  }, [weight, loadType]);
+  const effectiveWeight = weight * loadFactor[loadType];
 
-  const effectiveWeight = useMemo(() => {
-    if (loadType === "point") return weight * 1.4;
-    if (loadType === "concentrated") return weight * 1.25;
-    return weight;
-  }, [weight, loadType]);
+  const recommendation = useMemo(() => {
+    if (effectiveWeight <= 500) return pallets.light;
+    if (effectiveWeight <= 1400) return pallets.standard;
+    if (effectiveWeight <= 2000) return pallets.industrial;
+    return pallets.heavy;
+  }, [effectiveWeight]);
 
   const capacity =
     effectiveWeight <= 500 ? 500 : effectiveWeight <= 1500 ? 1500 : effectiveWeight <= 2000 ? 2000 : 2500;
-
   const stress = Math.min(100, Math.round((effectiveWeight / capacity) * 100));
+  const loadLabel = loadOptions.find(([id]) => id === loadType)![1];
 
   const quoteText = [
     "Preporuka iz kalkulatora paleta:",
     `- Model: ${recommendation.name}`,
     `- Dimenzije: ${recommendation.dims}`,
-    `- Težina tereta: ${weight} kg (${loadLabels[loadType]})`,
+    `- Težina tereta: ${weight} kg (${loadLabel})`,
     `- Dinamička nosivost: ${recommendation.dynamic}`,
   ].join("\n");
 
   return (
     <CalculatorCard
-      title="Pomoć pri odabiru palete"
-      description="Unesite težinu tereta - dobijate preporuku modela."
+      title="Odabir palete"
+      description="Unesite težinu tereta i raspored opterećenja - dobijate preporuku modela."
     >
+      <RangeField
+        id="pallet-weight"
+        label="Težina tereta"
+        unit="kg"
+        min={100}
+        max={2500}
+        step={50}
+        value={weight}
+        onChange={setWeight}
+      />
+
       <div>
-        <div className="flex justify-between text-sm mb-2">
-          <span className="font-medium text-stone-700">Težina tereta</span>
-          <span className="font-mono font-bold text-wood-800">{weight} kg</span>
-        </div>
-        <input
-          type="range"
-          min={100}
-          max={2500}
-          step={50}
-          value={weight}
-          onChange={(e) => setWeight(Number(e.target.value))}
-          aria-label="Težina tereta u kilogramima"
-          aria-valuemin={100}
-          aria-valuemax={2500}
-          aria-valuenow={weight}
-        />
+        <p className="eyebrow mb-3 text-[0.625rem] text-white/45">Raspored tereta</p>
+        <Segmented options={loadOptions} value={loadType} onChange={setLoadType} />
       </div>
 
-      <div className="grid grid-cols-3 gap-2 max-w-md mx-auto md:max-w-none md:mx-0">
-        {(
-          [
-            ["even", "Ravnomerno"],
-            ["concentrated", "U centru"],
-            ["point", "Tačkasto"],
-          ] as const
-        ).map(([id, label]) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setLoadType(id)}
-            className={cn(
-              "py-2.5 px-3 rounded-xl text-xs font-semibold border transition-all",
-              loadType === id
-                ? "bg-wood-100 border-wood-400 text-wood-900 shadow-sm"
-                : "bg-white/60 border-stone-200 text-stone-600 hover:border-wood-300 hover:bg-wood-50/50"
-            )}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      <div className="rounded-2xl bg-cream-dark/80 border border-wood-200/50 p-4 md:p-5">
-        <div className="flex justify-between text-xs text-stone-500 mb-2">
+      <div>
+        <div className="mb-2 flex justify-between font-mono text-[0.6875rem] text-white/45">
           <span>Opterećenje konstrukcije</span>
           <span
             className={cn(
-              "font-bold",
-              stress > 80 ? "text-red-600" : stress > 50 ? "text-amber-600" : "text-forest-600"
+              "font-semibold",
+              stress > 80 ? "text-red-300" : stress > 50 ? "text-gold-300" : "text-emerald-300"
             )}
           >
             {stress}%
           </span>
         </div>
-        <div className="h-2.5 bg-stone-200/80 rounded-full overflow-hidden">
-          <div
-            className={cn(
-              "h-full rounded-full transition-all duration-300",
-              stress > 80 ? "bg-red-500" : stress > 50 ? "bg-amber-500" : "bg-forest-500"
-            )}
-            style={{ width: `${stress}%` }}
-          />
+        <div className="flex h-2 gap-[3px]" aria-hidden>
+          {Array.from({ length: 24 }, (_, i) => {
+            const on = (i + 1) / 24 <= stress / 100;
+            return (
+              <span
+                key={i}
+                className={cn(
+                  "flex-1 rounded-[1px] transition-colors duration-300",
+                  !on ? "bg-white/10" : stress > 80 ? "bg-red-400" : stress > 50 ? "bg-gold-400" : "bg-emerald-400"
+                )}
+              />
+            );
+          })}
         </div>
       </div>
 
-      <div className="insight-panel text-center md:text-left">
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-wood-600 mb-1">
-          Preporuka
+      <Readout label="Preporuka">
+        <p className="font-display text-3xl">{recommendation.name}</p>
+        <p className="mt-1 text-sm text-white/60">
+          {recommendation.dims} · Dinamička nosivost {recommendation.dynamic}
         </p>
-        <p className="font-serif text-lg font-bold text-wood-950">{recommendation.name}</p>
-        <p className="text-sm text-stone-600 mt-2">
-          {recommendation.dims} · Dinamička nosivost: {recommendation.dynamic}
-        </p>
-      </div>
+      </Readout>
 
       <AddToQuoteButton text={quoteText} />
     </CalculatorCard>

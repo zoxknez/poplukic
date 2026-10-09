@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { DM_Sans, Libre_Baskerville } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Archivo, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,18 +7,31 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
 
-const dmSans = DM_Sans({
+const archivo = Archivo({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-sans",
+  axes: ["wdth"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
-const libreBaskerville = Libre_Baskerville({
+const instrument = Instrument_Serif({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "700"],
-  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
   display: "swap",
 });
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#0d152c",
+  colorScheme: "light",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -67,17 +80,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sr" className={`scroll-smooth ${dmSans.variable} ${libreBaskerville.variable}`}>
-      <body className={`${dmSans.className} antialiased bg-cream text-wood-950`}>
+    <html
+      lang="sr"
+      className={`${archivo.variable} ${instrument.variable} ${jetbrains.variable}`}
+    >
+      <body className="bg-paper text-ink antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-wood-900 focus:text-white focus:text-sm focus:font-semibold"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-gold-400 focus:text-navy-950 focus:text-sm focus:font-semibold"
         >
           Preskoči na sadržaj
         </a>
         <JsonLd />
         <Navbar />
-        <main id="main-content" className="min-h-screen pt-16 md:pt-[4.25rem]">
+        <main id="main-content" className="min-h-screen">
           {children}
         </main>
         <Footer />

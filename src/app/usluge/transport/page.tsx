@@ -11,22 +11,39 @@ export const metadata: Metadata = {
     "Sopstveni vozni park - šleperi do 24 t i solo kamioni. Isporuka paleta i gajbica širom Srbije i regiona.",
 };
 
+const fleet = [
+  {
+    code: "A",
+    title: "Mega šleperi (do 24 t)",
+    desc: "Ceradni (Curtainsider) šleperi za brz bočni utovar viljuškarom. Do 33 EUR paletnih mesta po vožnji.",
+    items: ["Nosivost 24.000 kg", "Bočni, zadnji i krovni utovar", "CMR osiguranje robe"],
+    position: "object-center",
+  },
+  {
+    code: "B",
+    title: "Solo kamioni (do 7,5 t)",
+    desc: "Za gradska stovarišta i gazdinstva bez pristupa velikim vozilima. Hidraulična rampa i paletar uključeni po dogovoru.",
+    items: ["Do 15 EUR paleta", "Isporuka u Vojvodini za 12-24 h", "GPS praćenje u realnom vremenu"],
+    position: "object-left",
+  },
+];
+
 export default function TransportPage() {
   return (
     <ProductPageLayout
       productName="Transport i logistika"
+      href="/usluge/transport"
       sidebarNote="Transport prvenstveno za asortiman kompanije; slobodan tovarni prostor dostupan po dogovoru."
       hero={{
-        title: "Transport i logistika",
+        code: "TRN",
+        label: "Usluge",
+        title: "Transport",
+        titleAccent: "i logistika.",
         description:
-          "Sopstveni kamioni i šleperi – brza isporuka ambalaže i građe. CMR dokumentacija za izvoz.",
+          "Sopstveni kamioni i šleperi - brza isporuka ambalaže i građe. CMR dokumentacija za izvoz.",
         image: "/images/transport-branded.png",
         imageAlt: "Transport POP-LUKIĆ",
         badges: ["24-48 h", "GPS praćenje"],
-        accent: "neutral",
-        backHref: "/",
-        backLabel: "Nazad na početnu",
-        backSublabel: "Početna strana",
         breadcrumbs: [
           { label: "Početna", href: "/" },
           { label: "Transport" },
@@ -35,73 +52,32 @@ export default function TransportPage() {
     >
       <LogisticsCalculator />
 
-      <ContentBlock flush accent="neutral">
-        <div className="grid md:grid-cols-2">
-          <div className="relative h-56 md:h-auto min-h-[260px] group">
-            <Image
-              src="/images/transport-branded.png"
-              alt="Šleper"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-wood-950/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-wood-950/10" />
+      {fleet.map((f) => (
+        <ContentBlock key={f.code} flush>
+          <div className="grid md:grid-cols-2">
+            <div className="relative min-h-[15rem]">
+              <Image
+                src="/images/transport-branded.png"
+                alt={f.title}
+                fill
+                className={`object-cover ${f.position}`}
+                sizes="(max-width: 768px) 100vw, 30vw"
+              />
+              <span className="eyebrow absolute left-4 top-4 rounded-sm bg-navy-950/85 px-2 py-1 text-[0.6rem] text-gold-300">
+                Vozilo {f.code}
+              </span>
+            </div>
+            <div className="flex flex-col justify-center p-6 md:p-8">
+              <h2 className="font-display text-3xl text-navy-900 md:text-4xl">{f.title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-ink/60">{f.desc}</p>
+              <CheckList className="mt-6" items={f.items} />
+            </div>
           </div>
-          <div className="p-6 md:p-8 lg:p-10 text-center md:text-left flex flex-col justify-center">
-            <h2 className="font-serif text-xl md:text-2xl font-bold text-wood-950 title-accent inline-block">
-              Mega šleperi (do 24 t)
-            </h2>
-            <p className="text-sm text-stone-600 mt-5 leading-relaxed">
-              Ceradni (Curtainsider) šleperi za brz bočni utovar viljuškarom. Do 33 EUR paletnih
-              mesta po vožnji.
-            </p>
-            <CheckList
-              className="mt-6"
-              items={[
-                "Nosivost 24.000 kg",
-                "Bočni, zadnji i krovni utovar",
-                "CMR osiguranje robe",
-              ]}
-            />
-          </div>
-        </div>
-      </ContentBlock>
+        </ContentBlock>
+      ))}
 
-      <ContentBlock flush accent="neutral">
-        <div className="grid md:grid-cols-2">
-          <div className="relative h-56 md:h-auto min-h-[260px] md:order-2 group">
-            <Image
-              src="/images/transport-branded.png"
-              alt="Solo kamion POP-LUKIĆ"
-              fill
-              className="object-cover object-left transition-transform duration-700 group-hover:scale-105"
-              sizes="50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-wood-950/50 via-transparent to-transparent md:bg-gradient-to-l md:from-transparent md:to-wood-950/10" />
-          </div>
-          <div className="p-6 md:p-8 lg:p-10 md:order-1 text-center md:text-left flex flex-col justify-center">
-            <h2 className="font-serif text-xl md:text-2xl font-bold text-wood-950 title-accent inline-block">
-              Solo kamioni (do 7,5 t)
-            </h2>
-            <p className="text-sm text-stone-600 mt-5 leading-relaxed">
-              Za gradska stovarišta i gazdinstva bez pristupa velikim vozilima. Hidraulična rampa i
-              paletar uključeni po dogovoru.
-            </p>
-            <CheckList
-              className="mt-6"
-              items={[
-                "Do 15 EUR paleta",
-                "Isporuka u Vojvodini za 12-24 h",
-                "GPS praćenje u realnom vremenu",
-              ]}
-            />
-          </div>
-        </div>
-      </ContentBlock>
-
-      <ContentBlock title="Garancija pouzdanosti" accent="neutral">
+      <ContentBlock title="Garancija pouzdanosti" index="C">
         <CheckList
-          columns={1}
           items={[
             "Tačni termini - berba ne čeka ambalažu",
             "CMR i carinska dokumentacija za izvoz",

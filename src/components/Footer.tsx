@@ -1,153 +1,126 @@
 import Link from "next/link";
-import { MapPin, Mail, Phone, ShieldCheck, TreePine, ArrowUpRight } from "lucide-react";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { siteConfig, products } from "@/lib/site";
 
-function FooterHeading({ children }: { children: React.ReactNode }) {
+function Col({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 mb-5 w-full">
-      <span className="inline-flex items-center justify-center md:justify-start gap-2.5 w-full">
-        <span className="w-8 h-px bg-wood-600 shrink-0 md:w-6 md:bg-wood-700" aria-hidden />
-        {children}
-        <span className="w-8 h-px bg-wood-600 shrink-0 md:hidden" aria-hidden />
-      </span>
-    </h4>
+    <div>
+      <p className="eyebrow mb-5 text-[0.625rem] text-gold-400/80">{title}</p>
+      <ul className="space-y-3 text-sm">{children}</ul>
+    </div>
   );
 }
 
-function ContactRow({
-  icon: Icon,
-  href,
-  children,
-}: {
-  icon: typeof MapPin;
-  href?: string;
-  children: React.ReactNode;
-}) {
-  const textClass =
-    "min-w-0 flex-1 text-sm leading-snug text-stone-300 pt-1.5 break-words";
-
-  return (
-    <li className="flex items-start gap-3 w-full text-left">
-      <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-wood-900/60 border border-wood-800/50 text-wood-500 shrink-0">
-        <Icon size={15} />
-      </span>
-      {href ? (
-        <a href={href} className={`${textClass} hover:text-white transition-colors`}>
-          {children}
-        </a>
-      ) : (
-        <span className={textClass}>{children}</span>
-      )}
-    </li>
-  );
-}
+const linkClass = "text-white/60 transition-colors hover:text-white";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-wood-950 text-stone-300 border-t border-wood-900 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(194,126,78,0.12),transparent)] pointer-events-none" />
-      <div className="absolute inset-0 grain-overlay opacity-[0.06] pointer-events-none" />
+    <footer className="relative isolate overflow-hidden bg-navy-950 text-white">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-blueprint opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-12 text-center md:text-left">
-          <div className="lg:col-span-4 space-y-5 flex flex-col items-center md:items-start">
-            <div className="flex items-center justify-center md:justify-start gap-3">
-              <Logo size="lg" href="/" className="ring-wood-700/50 shadow-wood-lg" />
-              <div className="text-left">
-                <div className="font-serif font-bold text-white text-lg">{siteConfig.name}</div>
-                <div className="text-xs text-stone-500">Od {siteConfig.founded}. godine</div>
+      <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
+        {/* CTA */}
+        <div className="flex flex-col gap-8 border-b border-white/10 py-16 md:flex-row md:items-end md:justify-between md:py-24">
+          <p className="font-display text-[clamp(2.75rem,6.5vw,6rem)] text-white">
+            Sledeća tura
+            <br />
+            <span className="accent-serif text-gold-300">kreće iz Banata.</span>
+          </p>
+          <Link
+            href="/kontakt#upit"
+            className="group inline-flex items-center gap-3 self-start rounded-full bg-gold-400 py-2 pl-7 pr-2 text-sm font-semibold text-navy-950 transition hover:bg-gold-300 md:self-auto"
+          >
+            Zatražite ponudu
+            <span className="flex size-10 items-center justify-center rounded-full bg-navy-950 text-gold-300 transition-transform duration-500 group-hover:rotate-45">
+              <ArrowUpRight size={18} />
+            </span>
+          </Link>
+        </div>
+
+        {/* Kolone */}
+        <div className="grid grid-cols-2 gap-10 py-14 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-4">
+            <div className="flex items-center gap-4">
+              <Logo size="lg" href="/" className="ring-1 ring-gold-500/40" />
+              <div>
+                <p className="font-display text-2xl">{siteConfig.name}</p>
+                <p className="eyebrow mt-1 text-[0.6rem] text-white/40">Od {siteConfig.founded}. godine</p>
               </div>
             </div>
-            <p className="text-sm leading-relaxed text-stone-400 max-w-sm">
-              {siteConfig.description}
-            </p>
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-wood-900/80 border border-wood-700/50 text-xs text-wood-200 backdrop-blur-sm">
-                <ShieldCheck size={12} />
-                ISPM 15
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-forest-950/80 border border-forest-800/50 text-xs text-forest-200 backdrop-blur-sm">
-                <TreePine size={12} />
-                FSC™
-              </span>
-            </div>
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/50">{siteConfig.description}</p>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col items-center md:items-start w-full">
-            <FooterHeading>Asortiman</FooterHeading>
-            <ul className="w-full max-w-[18rem] md:max-w-none mx-auto md:mx-0 rounded-2xl border border-wood-800/45 bg-wood-900/30 p-2 md:p-0 md:border-0 md:bg-transparent md:rounded-none space-y-0.5 md:space-y-3">
+          <div className="md:col-span-2 md:col-start-6">
+            <Col title="Asortiman">
               {products.map((p) => (
                 <li key={p.href}>
-                  <Link
-                    href={p.href}
-                    className="footer-link group flex items-center justify-center md:justify-start gap-1.5 py-3 px-4 rounded-xl md:rounded-none md:py-0 md:px-0 hover:bg-wood-900/55 md:hover:bg-transparent transition-colors w-full"
-                  >
+                  <Link href={p.href} className={linkClass}>
                     {p.title}
-                    <ArrowUpRight
-                      size={12}
-                      className="opacity-45 md:opacity-0 -translate-x-1 group-hover:opacity-60 md:group-hover:opacity-60 group-hover:translate-x-0 transition-all shrink-0"
-                    />
                   </Link>
                 </li>
               ))}
-            </ul>
+            </Col>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col items-center md:items-start w-full">
-            <FooterHeading>Kontakt</FooterHeading>
-            <ul className="w-full max-w-xs md:max-w-none mx-auto md:mx-0 space-y-4 rounded-2xl border border-wood-800/50 bg-wood-900/25 p-4 md:p-0 md:border-0 md:bg-transparent md:rounded-none">
-              <ContactRow icon={MapPin}>{siteConfig.address.full}</ContactRow>
-              <ContactRow icon={Mail} href={`mailto:${siteConfig.email}`}>
-                {siteConfig.email}
-              </ContactRow>
-              <ContactRow icon={Phone} href={siteConfig.phoneHref}>
-                {siteConfig.phone}
-              </ContactRow>
-            </ul>
+          <div className="md:col-span-2">
+            <Col title="Kompanija">
+              <li>
+                <Link href="/o-nama" className={linkClass}>O nama</Link>
+              </li>
+              <li>
+                <Link href="/kontakt" className={linkClass}>Kontakt</Link>
+              </li>
+              <li>
+                <Link href="/privacy" className={linkClass}>Privatnost</Link>
+              </li>
+              <li>
+                <Link href="/terms" className={linkClass}>Uslovi korišćenja</Link>
+              </li>
+            </Col>
           </div>
 
-          <div className="lg:col-span-2 flex flex-col items-center md:items-start w-full">
-            <FooterHeading>Firma</FooterHeading>
-            <dl className="space-y-3 w-full md:max-w-none mx-auto md:mx-0">
-              <div className="card-nested px-5 py-4 md:px-4 md:py-3 bg-wood-900/30 border-wood-800/40 text-center md:text-left w-full rounded-2xl">
-                <dt className="text-stone-400 text-xs md:text-[10px] uppercase tracking-[0.18em] font-semibold">
-                  Matični broj
-                </dt>
-                <dd className="font-mono text-white text-xl md:text-sm font-semibold mt-2 md:mt-1 tracking-[0.08em]">
-                  {siteConfig.legal.mb}
-                </dd>
-              </div>
-              <div className="card-nested px-5 py-4 md:px-4 md:py-3 bg-wood-900/30 border-wood-800/40 text-center md:text-left w-full rounded-2xl">
-                <dt className="text-stone-400 text-xs md:text-[10px] uppercase tracking-[0.18em] font-semibold">
-                  PIB
-                </dt>
-                <dd className="font-mono text-white text-xl md:text-sm font-semibold mt-2 md:mt-1 tracking-[0.08em]">
-                  {siteConfig.legal.pib}
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-
-        <div className="section-divider mt-14 mb-8 opacity-30" />
-
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-4 text-xs text-stone-500 text-center md:text-left">
-          <p>© {year} {siteConfig.name}. Sva prava zadržana.</p>
-          <div className="flex flex-wrap justify-center md:justify-end gap-6">
-            <Link href="/privacy" className="hover:text-stone-300 transition-colors">
-              Politika privatnosti
-            </Link>
-            <Link href="/terms" className="hover:text-stone-300 transition-colors">
-              Uslovi korišćenja
-            </Link>
-            <Link href="/kontakt" className="hover:text-stone-300 transition-colors">
-              Kontakt
-            </Link>
+          <div className="col-span-2 md:col-span-3">
+            <Col title="Kontakt">
+              <li>
+                <a href={siteConfig.phoneHref} className="font-display text-2xl text-white transition-colors hover:text-gold-300">
+                  {siteConfig.phone}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${siteConfig.email}`} className={`${linkClass} break-all`}>
+                  {siteConfig.email}
+                </a>
+              </li>
+              <li className="text-white/60">{siteConfig.address.full}</li>
+              <li className="pt-2 font-mono text-xs text-white/40">
+                MB {siteConfig.legal.mb} · PIB {siteConfig.legal.pib}
+              </li>
+            </Col>
           </div>
         </div>
+
+        <div className="flex flex-col-reverse gap-4 border-t border-white/10 py-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {siteConfig.name}. Sva prava zadržana.
+          </p>
+          <div className="flex items-center gap-6">
+            <span className="eyebrow text-[0.6rem]">ISPM 15 · FSC™ C132511</span>
+            <a href="#main-content" className="group inline-flex items-center gap-2 text-white/60 hover:text-white">
+              Na vrh
+              <ArrowUp size={14} className="transition-transform group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Monumentalni potpis */}
+      <div aria-hidden className="pointer-events-none select-none overflow-hidden">
+        <p className="text-gold-sheen -mb-[0.18em] whitespace-nowrap text-center font-display text-[18.5vw] leading-[0.8] opacity-90">
+          {siteConfig.shortName}
+        </p>
       </div>
     </footer>
   );

@@ -1,46 +1,125 @@
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/motion";
 
 type CalculatorCardProps = {
   title: string;
   description?: string;
   children: React.ReactNode;
   className?: string;
-  accent?: "wood" | "forest" | "amber";
 };
 
-const accents = {
-  wood: "from-wood-600 via-wood-400 to-wood-200",
-  forest: "from-forest-700 via-forest-500 to-forest-200",
-  amber: "from-amber-700 via-amber-500 to-amber-200",
-};
-
-export function CalculatorCard({
-  title,
-  description,
-  children,
-  className,
-  accent = "wood",
-}: CalculatorCardProps) {
+/** Interaktivni alat - "instrument tabla" u teget boji. */
+export function CalculatorCard({ title, description, children, className }: CalculatorCardProps) {
   return (
-    <div
+    <Reveal
       className={cn(
-        "panel-warm relative rounded-3xl border border-wood-200/50 overflow-hidden shadow-wood-md",
+        "relative isolate overflow-hidden rounded-xl bg-navy-900 text-white shadow-[0_30px_60px_-30px_rgb(7_12_28/0.6)]",
         className
       )}
     >
-      <div className={cn("absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r", accents[accent])} />
-      <div className="absolute top-0 right-0 w-32 h-32 bg-wood-400/5 rounded-full blur-2xl pointer-events-none" />
-      <div className="relative p-6 md:p-8 lg:p-9 space-y-6">
-        <div className="text-center md:text-left pb-2 border-b border-wood-200/30">
-          <h3 className="font-serif text-xl md:text-2xl font-bold text-wood-950">{title}</h3>
-          {description && (
-            <p className="text-sm text-stone-500 mt-2 leading-relaxed max-w-md mx-auto md:mx-0">
-              {description}
-            </p>
-          )}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-blueprint opacity-60" />
+      <div className="flex items-center justify-between border-b border-dashed border-white/15 px-6 py-3 md:px-8">
+        <span className="eyebrow text-[0.625rem] text-gold-400">Alat · kalkulator</span>
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="size-1.5 rounded-full bg-white/20" />
+          <span className="size-1.5 rounded-full bg-white/20" />
+          <span className="size-1.5 rounded-full bg-gold-400" />
+        </span>
+      </div>
+      <div className="space-y-7 p-6 md:p-8">
+        <div>
+          <h3 className="font-display text-3xl md:text-4xl">{title}</h3>
+          {description && <p className="mt-2 text-sm leading-relaxed text-white/55">{description}</p>}
         </div>
         {children}
       </div>
+    </Reveal>
+  );
+}
+
+/** Rezultat kalkulatora. */
+export function Readout({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-lg border border-gold-400/30 bg-gold-400/[0.07] p-5">
+      <p className="eyebrow text-[0.625rem] text-gold-400">{label}</p>
+      <div className="mt-2">{children}</div>
+    </div>
+  );
+}
+
+export function Segmented<T extends string>({
+  options,
+  value,
+  onChange,
+}: {
+  options: readonly (readonly [T, string])[];
+  value: T;
+  onChange: (v: T) => void;
+}) {
+  return (
+    <div
+      className="grid gap-1 rounded-full border border-white/12 p-1"
+      style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
+    >
+      {options.map(([id, label]) => (
+        <button
+          key={id}
+          type="button"
+          onClick={() => onChange(id)}
+          aria-pressed={value === id}
+          className={cn(
+            "rounded-full px-3 py-2.5 text-xs font-semibold transition-colors sm:text-sm",
+            value === id ? "bg-gold-400 text-navy-950" : "text-white/60 hover:text-white"
+          )}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function RangeField({
+  id,
+  label,
+  value,
+  unit,
+  min,
+  max,
+  step = 1,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  value: number;
+  unit: string;
+  min: number;
+  max: number;
+  step?: number;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <div>
+      <div className="mb-4 flex items-end justify-between">
+        <label htmlFor={id} className="eyebrow text-[0.625rem] text-white/45">
+          {label}
+        </label>
+        <span className="font-display text-4xl leading-none text-gold-300 tabular-nums">
+          {value.toLocaleString("de-DE")}
+          <span className="ml-1 font-mono text-xs text-white/40">{unit}</span>
+        </span>
+      </div>
+      <input
+        id={id}
+        type="range"
+        className="range-dark"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        style={{ "--fill": `${((value - min) / (max - min)) * 100}%` } as React.CSSProperties}
+      />
     </div>
   );
 }

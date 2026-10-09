@@ -18,6 +18,10 @@ export const siteConfig = {
   },
   coords: { lat: 45.048, lng: 20.789 },
   founded: 2005,
+  hours: { label: "Pon-Pet 07:00-16:00", sub: "Subota po dogovoru", open: 7, close: 16 },
+  whatsappHref: `https://wa.me/38113881200?text=${encodeURIComponent(
+    "Zdravo, zanima me ponuda za proizvode POP-LUKIĆ."
+  )}`,
   legal: {
     mb: "08736057",
     pib: "101080332",
@@ -53,6 +57,7 @@ export const navLinks = [
 
 export const products = [
   {
+    code: "PAL",
     title: "Drvene palete",
     subtitle: "EUR standard i po meri",
     href: "/proizvodi/palete",
@@ -60,6 +65,7 @@ export const products = [
     points: ["1200×800 / 1200×1000 mm", "ISPM 15 termički tretman", "Industrijske i boks palete"],
   },
   {
+    code: "GAJ",
     title: "Drvene gajbice",
     subtitle: "Za voće i povrće",
     href: "/proizvodi/gajbice",
@@ -67,6 +73,7 @@ export const products = [
     points: ["Jednoredne i dvoredne", "Kapacitet 15.000 kom/dan", "Sklopljene ili u elementima"],
   },
   {
+    code: "GRA",
     title: "Rezana građa",
     subtitle: "Topola i hrast",
     href: "/proizvodi/rezana-gradja",
@@ -74,6 +81,7 @@ export const products = [
     points: ["KD 8-12% ili vazdušno sušena", "Klasa A i B", "Sušara i parna komora"],
   },
   {
+    code: "TRN",
     title: "Transport",
     subtitle: "Sopstveni vozni park",
     href: "/usluge/transport",
@@ -104,7 +112,7 @@ export const processSteps = [
   {
     step: "04",
     title: "Isporuka",
-    desc: "Sopstvena logistika kompanije – brza i pouzdana dostava.",
+    desc: "Sopstvena logistika kompanije - brza i pouzdana dostava.",
     image: "/images/transport-branded.png",
   },
 ] as const;

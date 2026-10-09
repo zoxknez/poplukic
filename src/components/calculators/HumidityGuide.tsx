@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorCard } from "@/components/ui/CalculatorCard";
+import { cn } from "@/lib/utils";
+import { CalculatorCard, RangeField, Readout } from "@/components/ui/CalculatorCard";
 import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const ranges = [
@@ -28,40 +29,51 @@ export function HumidityGuide() {
   ].join("\n");
 
   return (
-    <CalculatorCard
-      title="Vlažnost drveta"
-      description="Podesite procenat vlage da vidite namenu i rizik."
-      accent="amber"
-    >
-      <div>
-        <div className="flex justify-between text-sm mb-2">
-          <span className="font-medium text-stone-700">Vlažnost</span>
-          <span className="font-mono font-bold text-wood-800">{humidity}%</span>
-        </div>
-        <input
-          type="range"
-          min={6}
-          max={50}
-          value={humidity}
-          onChange={(e) => setHumidity(Number(e.target.value))}
-          aria-label="Vlažnost drveta u procentima"
-          aria-valuemin={6}
-          aria-valuemax={50}
-          aria-valuenow={humidity}
-        />
+    <CalculatorCard title="Vlažnost drveta" description="Podesite procenat vlage da vidite namenu i rizik.">
+      <RangeField
+        id="humidity"
+        label="Vlažnost"
+        unit="%"
+        min={6}
+        max={50}
+        value={humidity}
+        onChange={setHumidity}
+      />
+
+      <div className="grid grid-cols-4 gap-1.5" aria-hidden>
+        {ranges.map((r) => (
+          <div key={r.title}>
+            <span
+              className={cn(
+                "block h-1 rounded-full transition-colors duration-300",
+                r === active ? "bg-gold-400" : "bg-white/12"
+              )}
+            />
+            <span
+              className={cn(
+                "mt-2 block font-mono text-[0.6rem] transition-colors",
+                r === active ? "text-gold-300" : "text-white/35"
+              )}
+            >
+              {r.min}-{r.max}%
+            </span>
+          </div>
+        ))}
       </div>
 
-      <div className="insight-panel insight-panel-amber text-center md:text-left space-y-3 text-sm">
-        <p className="font-serif font-bold text-lg text-wood-950">{active.title}</p>
-        <p>
-          <span className="text-stone-500">Pogodno za: </span>
-          <span className="text-stone-700">{active.use}</span>
-        </p>
-        <p>
-          <span className="text-stone-500">Rizik deformacije: </span>
-          <strong className="text-wood-900">{active.risk}</strong>
-        </p>
-      </div>
+      <Readout label="Kategorija">
+        <p className="font-display text-3xl">{active.title}</p>
+        <dl className="mt-4 space-y-2 border-t border-white/10 pt-4 text-sm">
+          <div className="flex justify-between gap-4">
+            <dt className="text-white/45">Pogodno za</dt>
+            <dd className="text-right text-white">{active.use}</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-white/45">Rizik deformacije</dt>
+            <dd className="text-right font-semibold text-gold-200">{active.risk}</dd>
+          </div>
+        </dl>
+      </Readout>
 
       <AddToQuoteButton text={quoteText} />
     </CalculatorCard>

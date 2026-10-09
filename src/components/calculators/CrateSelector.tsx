@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { CalculatorCard } from "@/components/ui/CalculatorCard";
+import { CalculatorCard, Readout } from "@/components/ui/CalculatorCard";
 import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
 
 const fruits = {
@@ -28,22 +28,19 @@ export function CrateSelector() {
   ].join("\n");
 
   return (
-    <CalculatorCard
-      title="Gajbica po vrsti ploda"
-      description="Izaberite kulturu za preporučenu ambalažu."
-      accent="forest"
-    >
-      <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+    <CalculatorCard title="Gajbica po plodu" description="Izaberite kulturu za preporučenu ambalažu.">
+      <div className="flex flex-wrap gap-2">
         {(Object.keys(fruits) as FruitId[]).map((id) => (
           <button
             key={id}
             type="button"
             onClick={() => setSelected(id)}
+            aria-pressed={selected === id}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium border transition-all",
+              "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
               selected === id
-                ? "bg-forest-100 border-forest-400 text-forest-900 shadow-sm"
-                : "bg-white/60 border-stone-200 text-stone-600 hover:border-forest-300 hover:bg-forest-50/40"
+                ? "border-gold-400 bg-gold-400 text-navy-950"
+                : "border-white/15 text-white/65 hover:border-white/35 hover:text-white"
             )}
           >
             {fruits[id].name}
@@ -51,22 +48,19 @@ export function CrateSelector() {
         ))}
       </div>
 
-      <div className="insight-panel insight-panel-forest text-center md:text-left">
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-forest-700">
-          Preporučeno
-        </p>
-        <p className="font-serif text-lg font-bold text-wood-950">{info.crate}</p>
-        <dl className="grid grid-cols-2 gap-3 text-sm max-w-sm mx-auto md:mx-0">
+      <Readout label="Preporučeno">
+        <p className="font-display text-3xl">{info.crate}</p>
+        <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-white/10 pt-4 text-sm">
           <div>
-            <dt className="text-stone-500">Dimenzije</dt>
-            <dd className="font-mono font-semibold text-wood-900 mt-0.5">{info.dims}</dd>
+            <dt className="eyebrow text-[0.6rem] text-white/40">Dimenzije</dt>
+            <dd className="mt-1 font-mono text-white">{info.dims}</dd>
           </div>
           <div>
-            <dt className="text-stone-500">Neto težina</dt>
-            <dd className="font-semibold text-wood-900 mt-0.5">{info.weight}</dd>
+            <dt className="eyebrow text-[0.6rem] text-white/40">Neto težina</dt>
+            <dd className="mt-1 font-mono text-white">{info.weight}</dd>
           </div>
         </dl>
-      </div>
+      </Readout>
 
       <AddToQuoteButton text={quoteText} />
     </CalculatorCard>

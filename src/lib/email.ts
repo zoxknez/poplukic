@@ -12,7 +12,7 @@ export async function sendContactNotification(payload: ContactEmailPayload): Pro
   const to = process.env.CONTACT_EMAIL ?? siteConfig.email;
   const from = process.env.CONTACT_FROM ?? `POP-LUKIĆ <onboarding@resend.dev>`;
 
-  const subject = `Novi upit sa sajta – ${payload.name}`;
+  const subject = `Novi upit sa sajta - ${payload.name}`;
   const text = [
     `Ime / firma: ${payload.name}`,
     `Email: ${payload.email}`,
@@ -71,7 +71,7 @@ export async function sendContactAutoReply(payload: Pick<ContactEmailPayload, "n
     body: JSON.stringify({
       from,
       to: [payload.email],
-      subject: `Primili smo vaš upit – ${siteConfig.shortName}`,
+      subject: `Primili smo vaš upit - ${siteConfig.shortName}`,
       text: [
         `Poštovani/a ${payload.name},`,
         "",

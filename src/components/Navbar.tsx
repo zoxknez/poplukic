@@ -1,281 +1,324 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { siteConfig, navLinks } from "@/lib/site";
-import { Button } from "@/components/ui/Button";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowUpRight, ChevronDown, Phone } from "lucide-react";
+import { siteConfig, navLinks, products } from "@/lib/site";
+import { useOpenStatus } from "@/lib/hours";
 import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
+
+function StatusPill({ className }: { className?: string }) {
+  const status = useOpenStatus();
+  return (
+    <span
+      className={cn(
+        "eyebrow inline-flex items-center gap-2 text-white/60 tabular-nums",
+        className
+      )}
+      aria-live="polite"
+    >
+      <span className="relative flex size-2">
+        {status?.open && (
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/70" />
+        )}
+        <span
+          className={cn(
+            "relative inline-flex size-2 rounded-full",
+            status ? (status.open ? "bg-emerald-400" : "bg-stamp") : "bg-white/30"
+          )}
+        />
+      </span>
+      {status ? (
+        <>
+          <span className="text-white/90">{status.time}</span>
+          <span>{status.label}</span>
+        </>
+      ) : (
+        <span>BVS · RS</span>
+      )}
+    </span>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [desktopProductsOpen, setDesktopProductsOpen] = useState(false);
+  const [mega, setMega] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
-  const productsRef = useRef<HTMLDivElement>(null);
+  const megaRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href.startsWith("/#")) return pathname === "/";
+    if (href.startsWith("/#")) return pathname.startsWith("/proizvodi");
     return pathname === href || pathname.startsWith(href + "/");
   };
 
   useEffect(() => {
     setOpen(false);
-    setProductsOpen(false);
-    setDesktopProductsOpen(false);
+    setMega(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-
-    const onClick = (event: MouseEvent) => {
-      if (!navRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("mousedown", onClick);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("mousedown", onClick);
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!desktopProductsOpen) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setDesktopProductsOpen(false);
-    };
-
-    const onClick = (event: MouseEvent) => {
-      if (!productsRef.current?.contains(event.target as Node)) {
-        setDesktopProductsOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("mousedown", onClick);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("mousedown", onClick);
-    };
-  }, [desktopProductsOpen]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  useEffect(() => {
+    if (!mega) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMega(false);
+    const onClick = (e: MouseEvent) => {
+      if (!megaRef.current?.contains(e.target as Node)) setMega(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [mega]);
+
   return (
-    <header
-      ref={navRef}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-md border-b border-wood-200/60 transition-all duration-300",
-        scrolled && "nav-scrolled"
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div
-          className={cn(
-            "flex items-center h-16 md:h-[4.25rem]",
-            pathname === "/"
-              ? "max-lg:justify-center lg:justify-between"
-              : "justify-between"
-          )}
-        >
-          <Link
-            href="/"
-            className={cn(
-              "flex items-center gap-3 group min-w-0",
-              pathname === "/" && "max-lg:hidden"
-            )}
-            onClick={() => setOpen(false)}
-          >
-            <Logo size="md" href="" priority className="group-hover:shadow-md" />
-            <div className="min-w-0 hidden sm:block">
-              <span className="font-serif font-bold text-wood-950 text-base md:text-lg leading-none block truncate">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div
+        className={cn(
+          "relative transition-[background-color,backdrop-filter,border-color] duration-500",
+          scrolled || open || mega
+            ? "bg-navy-950/85 backdrop-blur-xl border-b border-white/[0.07]"
+            : "bg-transparent border-b border-transparent"
+        )}
+      >
+        <div className="mx-auto flex h-16 md:h-[4.5rem] max-w-[90rem] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+          {/* Brand */}
+          <Link href="/" className="group flex min-w-0 items-center gap-3" aria-label="POP-LUKIĆ početna">
+            <Logo size="sm" href="" priority className="ring-1 ring-gold-500/40" />
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-[1.35rem] text-white tracking-wide">
                 {siteConfig.shortName}
               </span>
-              <span className="text-[10px] uppercase tracking-wider text-stone-500 font-medium truncate block">
-                {siteConfig.tagline}
+              <span className="eyebrow mt-1 text-[0.6rem] text-gold-400/80">
+                Est. {siteConfig.founded} · Banat
               </span>
-            </div>
+            </span>
           </Link>
 
+          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1" aria-label="Glavna navigacija">
-            {navLinks.map((link) => {
-              if ("children" in link && link.children) {
+            {navLinks.map((link, i) => {
+              const index = String(i + 1).padStart(2, "0");
+              const active = isActive(link.href);
+              const linkClass = cn(
+                "group relative flex items-center gap-2 px-3.5 py-2 text-[0.8125rem] font-medium transition-colors",
+                active ? "text-white" : "text-white/60 hover:text-white"
+              );
+              const inner = (
+                <>
+                  <span className="font-mono text-[0.625rem] text-gold-400/70">{index}</span>
+                  {link.name}
+                  <span
+                    className={cn(
+                      "absolute inset-x-3.5 -bottom-px h-px origin-left bg-gold-400 transition-transform duration-500 ease-[var(--ease-out-expo)]",
+                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    )}
+                  />
+                </>
+              );
+
+              if ("children" in link) {
                 return (
-                  <div key={link.name} className="relative" ref={productsRef}>
+                  <div key={link.name} ref={megaRef} className="relative">
                     <button
                       type="button"
-                      aria-expanded={desktopProductsOpen}
-                      aria-haspopup="menu"
-                      onClick={() => setDesktopProductsOpen((value) => !value)}
-                      className={cn(
-                        "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                        pathname.startsWith("/proizvodi") || desktopProductsOpen
-                          ? "text-wood-800 bg-wood-100"
-                          : "text-stone-600 hover:text-wood-900 hover:bg-stone-100"
-                      )}
+                      aria-expanded={mega}
+                      aria-haspopup="true"
+                      onClick={() => setMega((v) => !v)}
+                      className={linkClass}
                     >
-                      {link.name}
+                      {inner}
                       <ChevronDown
-                        size={14}
-                        className={cn("opacity-60 transition-transform", desktopProductsOpen && "rotate-180")}
+                        size={13}
+                        className={cn("opacity-60 transition-transform duration-300", mega && "rotate-180")}
                       />
                     </button>
-                    {desktopProductsOpen && (
-                      <div
-                        role="menu"
-                        className="absolute top-full left-0 pt-2"
-                      >
-                        <div className="bg-white border border-stone-200 rounded-xl shadow-wood-lg py-2 min-w-[220px]">
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              role="menuitem"
-                              onClick={() => setDesktopProductsOpen(false)}
-                              className="block px-4 py-2.5 text-sm text-stone-700 hover:bg-wood-50 hover:text-wood-900"
-                            >
-                              {child.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 );
               }
 
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                    isActive(link.href)
-                      ? "text-wood-800 bg-wood-100"
-                      : "text-stone-600 hover:text-wood-900 hover:bg-stone-100"
-                  )}
-                >
-                  {link.name}
+                <Link key={link.href} href={link.href} className={linkClass}>
+                  {inner}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="flex items-center gap-2.5 md:gap-3">
-            <div className="flex lg:hidden items-center gap-2.5">
-              <a
-                href={siteConfig.phoneHref}
-                className="flex items-center justify-center size-11 sm:size-12 rounded-2xl bg-white border border-stone-200/90 text-wood-800 shadow-sm hover:bg-wood-50 hover:border-wood-300/80 hover:text-wood-900 active:scale-[0.97] transition-all duration-200"
-                aria-label={`Pozovite ${siteConfig.phone}`}
-              >
-                <Phone size={22} strokeWidth={2} className="shrink-0" />
-              </a>
-              <button
-                type="button"
-                className={cn(
-                  "flex items-center justify-center size-11 sm:size-12 rounded-2xl border shadow-sm active:scale-[0.97] transition-all duration-200",
-                  open
-                    ? "bg-wood-900 border-wood-900 text-white shadow-wood-md"
-                    : "bg-white border-stone-200/90 text-wood-800 hover:bg-wood-50 hover:border-wood-300/80 hover:text-wood-900"
-                )}
-                onClick={() => setOpen(!open)}
-                aria-expanded={open}
-                aria-label={open ? "Zatvori meni" : "Otvori meni"}
-              >
-                {open ? (
-                  <X size={22} strokeWidth={2} className="shrink-0" />
-                ) : (
-                  <Menu size={22} strokeWidth={2} className="shrink-0" />
-                )}
-              </button>
-            </div>
+          {/* Right */}
+          <div className="flex items-center gap-3">
+            <StatusPill className="hidden xl:inline-flex" />
             <a
               href={siteConfig.phoneHref}
-              className="hidden xl:flex items-center gap-2 text-sm font-medium text-stone-600 hover:text-wood-800"
+              className="flex size-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-gold-400 hover:text-gold-300 lg:hidden"
+              aria-label={`Pozovite ${siteConfig.phone}`}
             >
-              <Phone size={15} />
-              {siteConfig.phone}
+              <Phone size={16} />
             </a>
-            <Button href="/kontakt" size="sm" className="hidden md:inline-flex">
-              Slanje upita
-            </Button>
+            <Link
+              href="/kontakt#upit"
+              className="group hidden md:inline-flex items-center gap-2 rounded-full bg-gold-400 pl-5 pr-1.5 py-1.5 text-[0.8125rem] font-semibold text-navy-950 transition hover:bg-gold-300"
+            >
+              Zatražite ponudu
+              <span className="flex size-7 items-center justify-center rounded-full bg-navy-950 text-gold-300 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:rotate-45">
+                <ArrowUpRight size={14} />
+              </span>
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-label={open ? "Zatvori meni" : "Otvori meni"}
+              className="relative flex size-10 items-center justify-center rounded-full border border-white/15 lg:hidden"
+            >
+              <span
+                className={cn(
+                  "absolute h-px w-4 bg-white transition-transform duration-500 ease-[var(--ease-out-expo)]",
+                  open ? "rotate-45" : "-translate-y-[3px]"
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute h-px w-4 bg-white transition-transform duration-500 ease-[var(--ease-out-expo)]",
+                  open ? "-rotate-45" : "translate-y-[3px]"
+                )}
+              />
+            </button>
           </div>
         </div>
+
+        {/* Scroll progress (CSS scroll-timeline) */}
+        <span
+          aria-hidden
+          className="scroll-progress absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-gold-600 via-gold-300 to-gold-600"
+        />
+
+        {/* Mega menu */}
+        <AnimatePresence>
+          {mega && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-x-0 top-full hidden lg:block border-b border-white/[0.07] bg-navy-950/95 backdrop-blur-xl"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <div className="mx-auto grid max-w-[90rem] grid-cols-4 gap-4 px-10 py-8">
+                {products.map((p, i) => (
+                  <Link
+                    key={p.href}
+                    href={p.href}
+                    className="group relative overflow-hidden rounded-xl border border-white/10"
+                  >
+                    <div className="relative aspect-[4/3]">
+                      <Image
+                        src={p.image}
+                        alt=""
+                        fill
+                        sizes="320px"
+                        className="object-cover opacity-70 transition duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/30 to-transparent" />
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 p-4">
+                      <span className="eyebrow text-gold-400">
+                        {String(i + 1).padStart(2, "0")} / {p.code}
+                      </span>
+                      <p className="mt-1 font-display text-2xl text-white">{p.title}</p>
+                      <p className="text-xs text-white/55">{p.subtitle}</p>
+                    </div>
+                    <ArrowUpRight
+                      size={18}
+                      className="absolute right-4 top-4 text-white/50 transition group-hover:rotate-45 group-hover:text-gold-300"
+                    />
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {open && (
-        <div className="lg:hidden border-t border-stone-200 bg-white px-6 py-5 shadow-lg">
-          <div className="flex flex-col items-center gap-1 text-center">
-            {navLinks.map((link) => {
-              if ("children" in link && link.children) {
-                return (
-                  <div key={link.name} className="w-full max-w-xs">
-                    <button
-                      type="button"
-                      onClick={() => setProductsOpen(!productsOpen)}
-                      aria-expanded={productsOpen}
-                      className="flex w-full items-center justify-center gap-2 py-3 text-sm font-semibold text-stone-800"
-                    >
-                      {link.name}
-                      <ChevronDown size={16} className={cn("transition-transform", productsOpen && "rotate-180")} />
-                    </button>
-                    {productsOpen && (
-                      <div className="pb-2 space-y-1 w-full">
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setOpen(false)}
-                            className="block py-2.5 text-sm text-stone-600 hover:text-wood-800"
-                          >
-                            {child.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-              return (
-                <Link
+      {/* Mobile overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 top-16 z-40 flex flex-col overflow-y-auto bg-navy-950 bg-blueprint lg:hidden"
+          >
+            <nav className="flex flex-col px-5 pt-6" aria-label="Mobilna navigacija">
+              {[
+                ...navLinks.filter((l) => !("children" in l)).slice(0, 2),
+                ...products.map((p) => ({ name: p.title, href: p.href })),
+                { name: "Kontakt", href: "/kontakt" },
+              ].map((link, i) => (
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="py-3.5 w-full max-w-xs text-sm font-semibold text-stone-800 border-b border-stone-100"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {link.name}
-                </Link>
-              );
-            })}
-            <a
-              href={siteConfig.phoneHref}
-              className="py-3 text-sm font-medium text-wood-700 inline-flex items-center justify-center gap-2"
-            >
-              <Phone size={15} />
-              {siteConfig.phone}
-            </a>
-            <Button href="/kontakt" className="mt-4 w-full max-w-xs" onClick={() => setOpen(false)}>
-              Slanje upita
-            </Button>
-          </div>
-        </div>
-      )}
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex items-baseline justify-between border-b border-white/10 py-4",
+                      isActive(link.href) ? "text-gold-300" : "text-white"
+                    )}
+                  >
+                    <span className="font-display text-[2.6rem] leading-none">{link.name}</span>
+                    <span className="font-mono text-xs text-white/40">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+
+            <div className="mt-auto space-y-4 px-5 pb-8 pt-10">
+              <StatusPill />
+              <a
+                href={siteConfig.phoneHref}
+                className="block font-display text-3xl text-gold-300"
+              >
+                {siteConfig.phone}
+              </a>
+              <Link
+                href="/kontakt#upit"
+                onClick={() => setOpen(false)}
+                className="flex w-full items-center justify-between rounded-full bg-gold-400 px-6 py-4 font-semibold text-navy-950"
+              >
+                Zatražite ponudu
+                <ArrowUpRight size={18} />
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

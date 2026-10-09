@@ -1,159 +1,168 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, TreePine } from "lucide-react";
-import { Logo } from "@/components/Logo";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import { Pallet3D } from "@/components/three/Pallet3D";
+import { MaskLines, Magnetic, Reveal } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
-const metrics = [
+const stats = [
   { value: "15.000+", label: "Gajbica dnevno" },
-  { value: "20+", label: "Godina iskustva" },
+  { value: "20+", label: "Godina u Banatu" },
   { value: "24-48h", label: "Isporuka u Srbiji" },
+  { value: "100%", label: "FSC™ sirovina" },
 ];
+
+function CropMarks() {
+  const mark = "absolute size-5 border-gold-400/50";
+  return (
+    <>
+      <span className={`${mark} left-0 top-0 border-l border-t`} />
+      <span className={`${mark} right-0 top-0 border-r border-t`} />
+      <span className={`${mark} bottom-0 left-0 border-b border-l`} />
+      <span className={`${mark} bottom-0 right-0 border-b border-r`} />
+    </>
+  );
+}
 
 export function Hero() {
   return (
-    <section className="relative bg-cream border-b border-stone-200/80 overflow-hidden">
-      {/* Ambient */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[min(900px,90%)] h-64 bg-wood-300/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative isolate overflow-hidden bg-navy-950 text-white">
+      {/* Atmosfera */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-blueprint [mask-image:radial-gradient(ellipse_70%_60%_at_65%_45%,black,transparent)]" />
+        <div className="absolute right-[-10%] top-[10%] size-[min(900px,110vw)] rounded-full bg-[radial-gradient(circle,rgb(216_180_106/0.22),transparent_62%)]" />
+        <div className="absolute left-[-20%] bottom-[-30%] size-[700px] rounded-full bg-[radial-gradient(circle,rgb(47_60_100/0.6),transparent_65%)]" />
+        <div className="grain absolute inset-0 opacity-[0.07] mix-blend-overlay" />
+      </div>
 
-      <div className="relative max-w-[88rem] mx-auto px-5 sm:px-8 lg:px-10 xl:px-14">
-        <div className="grid lg:grid-cols-12 lg:gap-8 xl:gap-12 min-h-[calc(100dvh-4.25rem)] items-center py-12 md:py-16 lg:py-10">
-          {/* Copy - centered in left zone, pulled toward image */}
-          <div className="lg:col-span-6 xl:col-span-5 flex flex-col justify-center order-2 lg:order-1">
-            <div className="w-full max-w-[32rem] mx-auto lg:mx-0 lg:ml-auto lg:mr-0 text-center lg:text-left">
-              <div className="section-eyebrow mb-8 md:mb-10">
-                <span className="section-eyebrow-line bg-wood-400" aria-hidden />
-                <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-stone-500">
-                  {siteConfig.address.city} · Od {siteConfig.founded}.
-                </p>
-                <span className="section-eyebrow-line bg-wood-400 lg:hidden" aria-hidden />
-              </div>
+      <div className="mx-auto grid min-h-[100svh] max-w-[90rem] grid-rows-[1fr_auto] px-4 sm:px-6 lg:px-10">
+        <div className="grid items-center gap-6 pt-24 md:pt-28 lg:grid-cols-12 lg:gap-4 lg:pt-24">
+          {/* Copy */}
+          <div className="relative z-10 lg:col-span-6 xl:col-span-6">
+            <Reveal y={12} className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="eyebrow text-gold-400">[ Od {siteConfig.founded}. ]</span>
+              <span className="h-px w-10 bg-white/20" />
+              <span className="eyebrow text-white/50">
+                {siteConfig.address.city} · RS · 45.05°N 20.79°E
+              </span>
+            </Reveal>
 
-              <h1 className="font-serif text-[2.35rem] sm:text-[2.75rem] lg:text-[3.1rem] xl:text-[3.45rem] font-normal text-wood-950 leading-[1.08] tracking-[-0.025em]">
-                Precizna izrada
-                <span className="block font-bold mt-1 text-wood-900">drvene ambalaže</span>
-              </h1>
-
-              <p className="mt-6 md:mt-8 text-base md:text-lg text-stone-600 leading-[1.7] max-w-md mx-auto lg:mx-0">
-                Palete, gajbice i rezana građa za poljoprivredu, industriju i izvoz –
-                sertifikovano, iz jednog pogona, sa sopstvenom logistikom.
-              </p>
-
-              <div className="mt-9 md:mt-11 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 sm:gap-6">
-                <Link
-                  href="/#proizvodi"
-                  className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-br from-wood-900 via-wood-800 to-wood-700 text-white text-sm font-semibold px-8 py-4 rounded-full hover:from-wood-800 hover:to-wood-650 transition-all duration-300 shadow-wood-md hover:shadow-wood-lg hover:-translate-y-0.5 w-full sm:w-auto border border-wood-900/20"
-                >
-                  Proizvodni program
-                  <ArrowRight size={16} strokeWidth={2} />
-                </Link>
-                <Link
-                  href="/kontakt"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-wood-800 hover:text-wood-600 transition-colors group"
-                >
-                  Kontakt
-                  <span className="block h-px w-10 bg-wood-400 group-hover:w-14 transition-all" />
-                </Link>
-              </div>
-
-              <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                <span className="px-3 py-1.5 rounded-full bg-white border border-stone-200/80 text-[10px] font-bold uppercase tracking-wider text-wood-800 shadow-sm">
-                  ISPM 15
-                </span>
-                <span className="px-3 py-1.5 rounded-full bg-white border border-forest-200/80 text-[10px] font-bold uppercase tracking-wider text-forest-800 shadow-sm">
-                  FSC™
-                </span>
-                <span className="px-3 py-1.5 rounded-full bg-white border border-stone-200/80 text-[10px] font-bold uppercase tracking-wider text-stone-600 shadow-sm">
-                  Sopstveni transport
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Image - larger column, rounded, floating cards */}
-          <div className="lg:col-span-6 xl:col-span-7 order-1 lg:order-2">
-            <div className="relative mx-auto lg:mx-0 max-w-xl lg:max-w-none">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] xl:aspect-[16/11] rounded-3xl overflow-hidden shadow-wood-xl ring-1 ring-wood-200/40">
-                <Image
-                  src="/images/palete.png"
-                  alt="Drvene palete u proizvodnji POP-LUKIĆ"
-                  fill
-                  priority
-                  className="object-cover object-[55%_center]"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-wood-950/25 via-transparent to-transparent pointer-events-none" />
-
-                {/* Logo + badge on image */}
-                <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-5 sm:right-5 flex justify-between items-start gap-3 z-10">
-                  <Logo
-                    size="hero"
-                    href="/"
-                    priority
-                    className="rounded-2xl sm:rounded-3xl ring-2 ring-white/90 shadow-lg shadow-black/25 hover:ring-white hover:shadow-xl"
-                  />
-                  <span className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-wood-950/75 backdrop-blur-md border border-white/10 text-[10px] font-medium text-white/90 shrink-0">
-                    <ShieldCheck size={12} className="text-wood-300" />
-                    Sertifikovano
-                  </span>
-                </div>
-
-                <div className="absolute bottom-5 left-5 right-5 hidden md:flex gap-3">
-                  <div className="flex-1 panel-warm rounded-2xl px-4 py-3 border border-white/50 bg-white/85 backdrop-blur-md shadow-lg">
-                    <p className="font-serif text-xl font-bold text-wood-950">15.000+</p>
-                    <p className="text-[10px] uppercase tracking-wider text-stone-500 mt-0.5">
-                      Gajbica / dan
-                    </p>
-                  </div>
-                  <div className="flex-1 panel-warm rounded-2xl px-4 py-3 border border-white/50 bg-white/85 backdrop-blur-md shadow-lg">
-                    <div className="flex items-center gap-1.5">
-                      <TreePine size={14} className="text-forest-700" />
-                      <p className="font-serif text-lg font-bold text-wood-950">FSC™</p>
-                    </div>
-                    <p className="text-[10px] uppercase tracking-wider text-stone-500 mt-0.5">
-                      Održivo drvo
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Decorative offset frame */}
-              <div
-                className="absolute -z-10 -bottom-4 -right-4 w-full h-full rounded-3xl border border-wood-300/30 bg-wood-100/40 hidden lg:block"
-                aria-hidden
+            <h1 className="mt-6 font-display text-[clamp(3.4rem,8.4vw,8.75rem)] text-white">
+              <MaskLines
+                onMount
+                delay={0.1}
+                lines={[
+                  "Drvo koje",
+                  <span key="nosi">
+                    <span className="accent-serif text-gold-sheen pr-[0.08em] text-[1.08em] leading-[0.8]">
+                      nosi
+                    </span>{" "}
+                    teret
+                  </span>,
+                  "industrije.",
+                ]}
               />
+            </h1>
+
+            <Reveal delay={0.45} className="mt-8 grid max-w-xl gap-8 sm:grid-cols-[1fr_auto] sm:items-end">
+              <p className="text-base leading-relaxed text-white/65 md:text-lg">
+                Palete, gajbice i rezana građa iz jednog pogona u Banatu - ISPM 15 tretirano,
+                FSC™ sertifikovano i isporučeno sopstvenim kamionima.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.6} className="mt-10 flex flex-wrap items-center gap-3">
+              <Magnetic>
+                <Link
+                  href="/kontakt#upit"
+                  className="group inline-flex items-center gap-3 rounded-full bg-gold-400 py-2 pl-7 pr-2 text-sm font-semibold text-navy-950 shadow-[0_10px_40px_-10px_rgb(216_180_106/0.7)] transition-colors hover:bg-gold-300"
+                >
+                  Zatražite ponudu
+                  <span className="flex size-10 items-center justify-center rounded-full bg-navy-950 text-gold-300 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:rotate-45">
+                    <ArrowUpRight size={18} />
+                  </span>
+                </Link>
+              </Magnetic>
+              <Link
+                href="#proizvodi"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-4 text-sm font-medium text-white/80 transition hover:border-white/40 hover:text-white"
+              >
+                Proizvodni program
+                <ArrowDownRight
+                  size={16}
+                  className="transition-transform duration-500 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+                />
+              </Link>
+            </Reveal>
+
+            <Reveal delay={0.75} className="mt-10 flex flex-wrap gap-2">
+              {["ISPM 15 · HT", "FSC™ C132511", "Sopstveni vozni park"].map((chip) => (
+                <span
+                  key={chip}
+                  className="eyebrow rounded-sm border border-white/12 bg-white/[0.03] px-2.5 py-1.5 text-[0.625rem] text-white/60"
+                >
+                  {chip}
+                </span>
+              ))}
+            </Reveal>
+          </div>
+
+          {/* 3D */}
+          <div className="relative -mx-4 sm:mx-0 lg:col-span-6 xl:col-span-6">
+            <div className="relative aspect-square max-h-[78svh] w-full lg:aspect-[5/6]">
+              <div className="absolute inset-3 sm:inset-6">
+                <CropMarks />
+              </div>
+              <Pallet3D
+                className="absolute inset-0"
+                fallback={
+                  <div className="absolute inset-8 overflow-hidden rounded-lg">
+                    <Image
+                      src="/images/palete.png"
+                      alt="Drvene palete POP-LUKIĆ"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover opacity-80"
+                    />
+                  </div>
+                }
+              />
+              <div className="pointer-events-none absolute inset-x-6 bottom-6 flex items-end justify-between sm:inset-x-10 sm:bottom-10">
+                <p className="eyebrow text-[0.6rem] text-white/45">
+                  Fig. 01 — EUR 1200 × 800
+                  <br />
+                  <span className="text-gold-400/80">Jedinični teret · 8 gajbica</span>
+                </p>
+                <p className="eyebrow hidden text-[0.6rem] text-white/35 sm:block">
+                  ↔ Pomerite kursor
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Metrics */}
-        <div className="pb-10 md:pb-14 lg:pb-12 -mt-2 lg:-mt-6 relative z-10">
-          <div className="panel-warm rounded-2xl md:rounded-3xl border border-wood-300/45 ring-1 ring-white/60 shadow-wood-md px-4 py-3 sm:px-8 sm:py-6 md:px-10 md:py-8 max-w-4xl mx-auto lg:max-w-none">
-            <dl className="flex flex-col gap-0 sm:grid sm:grid-cols-3 sm:gap-6 md:gap-10">
-              {metrics.map((m, i) => (
-                <div
-                  key={m.label}
-                  className={cn(
-                    "flex items-center gap-3 py-3.5 px-1 sm:flex-col sm:justify-center sm:gap-2 sm:py-0 sm:px-0 sm:text-center",
-                    i > 0 && "border-t border-wood-200/80 sm:border-t-0",
-                    i > 0 && "sm:border-l sm:border-wood-200/90 sm:pl-8 md:pl-10"
-                  )}
-                >
-                  <dt className="font-serif text-[1.65rem] sm:text-3xl md:text-[2rem] font-bold text-wood-950 tracking-tight whitespace-nowrap shrink-0 leading-none">
-                    {m.value}
-                  </dt>
-                  <span className="text-wood-400/90 sm:hidden shrink-0" aria-hidden>
-                    ·
-                  </span>
-                  <dd className="min-w-0 flex-1 text-sm sm:text-[0.8125rem] md:text-sm font-semibold text-wood-800 sm:text-stone-700 leading-snug text-left sm:text-center">
-                    {m.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
+        {/* Stat strip */}
+        <dl className="grid grid-cols-2 border-t border-white/10 md:grid-cols-4">
+          {stats.map((s, i) => (
+            <Reveal
+              key={s.label}
+              delay={0.8 + i * 0.08}
+              className={cn(
+                "flex flex-col gap-2 py-6 md:py-8",
+                i % 2 === 1 && "border-l border-white/10 pl-5 md:pl-8",
+                i === 2 && "md:border-l md:border-white/10 md:pl-8",
+                i >= 2 && "border-t border-white/10 md:border-t-0"
+              )}
+            >
+              <dt className="eyebrow order-2 text-[0.625rem] text-white/45">{s.label}</dt>
+              <dd className="order-1 font-display text-[clamp(2.25rem,4.5vw,3.75rem)] text-white">
+                {s.value}
+              </dd>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
   );

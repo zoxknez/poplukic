@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { ArrowDownRight } from "lucide-react";
 import { setQuotePrefill, scrollToQuoteForm } from "@/lib/quote-prefill";
 
 type AddToQuoteButtonProps = {
@@ -11,18 +10,16 @@ type AddToQuoteButtonProps = {
 
 export function AddToQuoteButton({ text, label = "Dodaj u upit" }: AddToQuoteButtonProps) {
   return (
-    <Button
+    <button
       type="button"
-      variant="outline"
-      size="sm"
-      className="w-full rounded-full border-dashed hover:border-solid"
       onClick={() => {
         setQuotePrefill(text);
         scrollToQuoteForm();
       }}
+      className="group flex w-full items-center justify-between rounded-full border border-dashed border-gold-400/60 px-6 py-3.5 text-sm font-semibold text-gold-200 transition hover:border-solid hover:bg-gold-400 hover:text-navy-950"
     >
       {label}
-      <ArrowDown size={14} className="animate-bounce" style={{ animationDuration: "2s" }} />
-    </Button>
+      <ArrowDownRight size={16} className="transition-transform group-hover:translate-y-0.5" />
+    </button>
   );
 }

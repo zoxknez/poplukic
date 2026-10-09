@@ -10,22 +10,16 @@ export function FeatureCard({ title, description, className }: FeatureCardProps)
   return (
     <article
       className={cn(
-        "card-nested-hover p-5 md:p-6 text-center md:text-left group",
+        "group relative rounded-lg border border-ink/10 bg-white/60 p-5 transition-colors duration-500 hover:border-gold-500/50 hover:bg-white md:p-6",
         className
       )}
     >
-      <div className="flex flex-col md:flex-row md:items-start gap-3">
-        <span
-          className="mx-auto md:mx-0 w-1.5 h-8 rounded-full bg-gradient-to-b from-wood-500 to-wood-300 shrink-0 opacity-80 group-hover:opacity-100 transition-opacity"
-          aria-hidden
-        />
-        <div className="min-w-0 flex-1">
-          <h3 className="font-serif text-lg font-bold text-wood-950 group-hover:text-wood-800 transition-colors">
-            {title}
-          </h3>
-          <p className="text-sm text-stone-600 mt-2 leading-relaxed">{description}</p>
-        </div>
-      </div>
+      <span
+        aria-hidden
+        className="absolute left-0 top-6 h-8 w-0.5 bg-gold-500 transition-all duration-500 group-hover:h-12"
+      />
+      <h3 className="text-lg font-semibold leading-snug text-navy-900">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-ink/60">{description}</p>
     </article>
   );
 }

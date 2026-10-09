@@ -1,36 +1,31 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { CalculatorCard } from "@/components/ui/CalculatorCard";
-import { Select } from "@/components/ui/Select";
+import { CalculatorCard, RangeField, Readout, Segmented } from "@/components/ui/CalculatorCard";
 import { AddToQuoteButton } from "@/components/calculators/AddToQuoteButton";
+import {
+  cargoRange,
+  destinations,
+  fillPercent,
+  pickVehicle,
+  type Cargo,
+  type DestinationId,
+} from "@/lib/logistics";
 
-const destinations = [
-  { id: "vojvodina", name: "Vojvodina", time: "12-24 h" },
-  { id: "beograd", name: "Beograd", time: "24 h" },
-  { id: "central", name: "Centralna Srbija", time: "24-48 h" },
-  { id: "south", name: "Jug Srbije", time: "48 h" },
-  { id: "eu", name: "Izvoz / EU", time: "48-72 h + carina" },
-];
+const cargoOptions = [
+  ["pallets", "Palete"],
+  ["crates", "Gajbice"],
+] as const;
 
 export function LogisticsCalculator() {
-  const [cargo, setCargo] = useState<"pallets" | "crates">("pallets");
-  const [qty, setQty] = useState(24);
-  const [dest, setDest] = useState("vojvodina");
+  const [cargo, setCargo] = useState<Cargo>("pallets");
+  const [qty, setQty] = useState(cargoRange.pallets.initial);
+  const [dest, setDest] = useState<DestinationId>("vojvodina");
 
-  const result = useMemo(() => {
-    if (cargo === "pallets") {
-      if (qty <= 15) return { vehicle: "Solo kamion (7,5 t)", cap: 15 };
-      if (qty <= 33) return { vehicle: "Mega šleper (24 t)", cap: 33 };
-      return { vehicle: "Šleper + prikolica", cap: 66 };
-    }
-    if (qty <= 1200) return { vehicle: "Solo kamion", cap: 1200 };
-    if (qty <= 3000) return { vehicle: "Standardni šleper", cap: 3000 };
-    return { vehicle: "Mega šleper", cap: 4500 };
-  }, [cargo, qty]);
-
-  const fill = Math.min(100, Math.round((qty / result.cap) * 100));
+  const range = cargoRange[cargo];
+  const result = useMemo(() => pickVehicle(cargo, qty), [cargo, qty]);
+  const fill = fillPercent(qty, result.cap);
   const destInfo = destinations.find((d) => d.id === dest)!;
 
   const quoteText = [
@@ -44,77 +39,68 @@ export function LogisticsCalculator() {
   ].join("\n");
 
   return (
-    <CalculatorCard
-      title="Planiranje transporta"
-      description="Procena vozila i roka isporuke."
-      accent="amber"
-    >
-      <div className="grid grid-cols-2 gap-2">
-        {(["pallets", "crates"] as const).map((type) => (
-          <button
-            key={type}
-            type="button"
-            onClick={() => {
-              setCargo(type);
-              setQty(type === "pallets" ? 24 : 1000);
-            }}
-            className={cn(
-              "py-2.5 rounded-xl text-sm font-semibold border transition-all",
-              cargo === type
-                ? "bg-wood-100 border-wood-400 text-wood-900 shadow-sm"
-                : "bg-white/60 border-stone-200 text-stone-600 hover:border-wood-300"
-            )}
-          >
-            {type === "pallets" ? "Palete" : "Gajbice"}
-          </button>
-        ))}
-      </div>
+    <CalculatorCard title="Planiranje transporta" description="Procena vozila i roka isporuke.">
+      <Segmented
+        options={cargoOptions}
+        value={cargo}
+        onChange={(type) => {
+          setCargo(type);
+          setQty(cargoRange[type].initial);
+        }}
+      />
 
-      <div>
-        <div className="flex justify-between text-sm mb-2">
-          <span className="font-medium text-stone-700">Količina</span>
-          <span className="font-mono font-bold text-wood-800">{qty} kom</span>
+      <RangeField
+        id="logistics-qty"
+        label="Količina"
+        unit="kom"
+        min={range.min}
+        max={range.max}
+        step={range.step}
+        value={qty}
+        onChange={setQty}
+      />
+
+      <fieldset>
+        <legend className="eyebrow mb-3 text-[0.625rem] text-white/45">Destinacija</legend>
+        <div className="flex flex-wrap gap-2">
+          {destinations.map((d) => (
+            <button
+              key={d.id}
+              type="button"
+              onClick={() => setDest(d.id)}
+              aria-pressed={dest === d.id}
+              className={cn(
+                "rounded-full border px-3.5 py-2 text-xs font-medium transition-colors",
+                dest === d.id
+                  ? "border-gold-400 bg-gold-400/10 text-gold-200"
+                  : "border-white/12 text-white/55 hover:border-white/30 hover:text-white"
+              )}
+            >
+              {d.name}
+            </button>
+          ))}
         </div>
-        <input
-          type="range"
-          min={cargo === "pallets" ? 1 : 100}
-          max={cargo === "pallets" ? 76 : 5000}
-          step={cargo === "pallets" ? 1 : 100}
-          value={qty}
-          onChange={(e) => setQty(Number(e.target.value))}
-          aria-label="Količina u komadima"
-          aria-valuemin={cargo === "pallets" ? 1 : 100}
-          aria-valuemax={cargo === "pallets" ? 76 : 5000}
-          aria-valuenow={qty}
-        />
-      </div>
+      </fieldset>
 
-      <Select
-        label="Destinacija"
-        value={dest}
-        onChange={(e) => setDest(e.target.value)}
-      >
-        {destinations.map((d) => (
-          <option key={d.id} value={d.id}>
-            {d.name} - {d.time}
-          </option>
-        ))}
-      </Select>
-
-      <div className="insight-panel text-center md:text-left space-y-2.5 text-sm">
-        <p>
-          <span className="text-stone-500">Vozilo: </span>
-          <strong className="text-wood-950">{result.vehicle}</strong>
-        </p>
-        <p>
-          <span className="text-stone-500">Popunjenost: </span>
-          <strong className="text-wood-950">{fill}%</strong>
-        </p>
-        <p>
-          <span className="text-stone-500">Rok ({destInfo.name}): </span>
-          <strong className="text-wood-950">{destInfo.time}</strong>
-        </p>
-      </div>
+      <Readout label="Procena">
+        <p className="font-display text-3xl">{result.vehicle}</p>
+        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full rounded-full bg-gold-400 transition-[width] duration-500 ease-[var(--ease-out-expo)]"
+            style={{ width: `${fill}%` }}
+          />
+        </div>
+        <dl className="mt-4 grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <dt className="eyebrow text-[0.6rem] text-white/40">Popunjenost</dt>
+            <dd className="mt-1 font-mono text-white">{fill}%</dd>
+          </div>
+          <div>
+            <dt className="eyebrow text-[0.6rem] text-white/40">Rok · {destInfo.name}</dt>
+            <dd className="mt-1 font-mono text-white">{destInfo.time}</dd>
+          </div>
+        </dl>
+      </Readout>
 
       <AddToQuoteButton text={quoteText} />
     </CalculatorCard>
